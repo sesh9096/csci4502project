@@ -251,20 +251,26 @@ Lastly, “Quantitative and qualitative analysis of head and body impacts in Ame
 \section{Proposed Work}
 
 To analyze the effect of various traits of player, matches, and other factors on
-the timing and a success rate of tackle, we will be using data from the following
-dataset:
-\href{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}{}
-specifically the files ``\verb|tackles.csv|'', ``\verb|games.csv|'', ``\verb|plays.csv|''
+the timing and a success rate of tackle, we will be using data from the Kaggle
+NFL Big Data Bowl
+\href{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}{\underline{dataset}}
+specifically the files ``\verb|tackles.csv|'', ``\verb|games.csv|'',
+``\verb|plays.csv|'' which contain data on the play, players, success, teams,
+etc. involved in a tackle.
 
-Primary Goal: Find correlations between known information such as weight,
-height, and time during a game and the output (location, likelihood of success
-and number of tackles)
-Does higher weight and height lead to more tackles? Do they result in more injuries?
-Do more tackles tend to happen early in the game? Late? Dependent on location?
-Secondary Goals?
-Predict whether a player will make a tackle in a game based on prior history?
-Historical analysis of changes in tackle frequency, location, injuries, etc.
-Do different kinds and amounts of tackles influence the likelihood of winning a game?
+Our primary goal for this project is to find correlations between previously
+known information such as weight, height, and time during a game and the tackles
+performed (location, likelihood of success and number of tackles). To this end,
+we are proposing to try and find correlations between factors such as height and
+weight and frequency and likelihood of success of tackles, frequency analysis
+for examining which teams/players tend to engage in tackles, and time series
+analysis to understand the relationship between time during a game an frequency
+of tackles.
+
+In addition to this analysis, we also seek to analyze whether the risk of injury
+from tackles can be reduced and how much of an impact tackles have on the
+outcome of a game or visa versa. We will also seek to analyze the difference in
+frequencies of tackles between different teams and positions.
 
 \section{Evaluation}
 \begin{itemize}
