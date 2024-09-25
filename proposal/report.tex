@@ -45,7 +45,7 @@
 %% for your publication.
 %%
 %%
-\documentclass[sigconf]{acmart}
+\documentclass[sigconf, hyperref={colorlinks=true,linkcolor=blue,urlcolor=blue}]{acmart}
 
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -217,11 +217,11 @@
 \maketitle
 
 \section{Introduction}
-What? NFL Big Data Bowl 2024 provided by Next Gen Stats (2022 season data) 
- 
-Main goal: Predicting tackle time, probability, and location 
-Provided with player-level tackle information for each weeks games and 
-plays, as well as position on the field, speed, acceleration, etc. 
+What? NFL Big Data Bowl 2024 provided by Next Gen Stats (2022 season data)
+
+Main goal: Predicting tackle time, probability, and location
+Provided with player-level tackle information for each weeks games and
+plays, as well as position on the field, speed, acceleration, etc.
 
 Why?
 Provide NFL with understanding of tackle expectations and limitations in order
@@ -233,20 +233,37 @@ tackling in American football. This section discusses three examples of those
 studies, one hobbyist analysis, and the foundation they lay for our proposed
 work.
 
-The paper “Validating Tackle Mechanics in American Football: Improving Safety
-and Performance” (Maerlender et al.) discusses the development of a program
-to reduce the risk of serious injury from tackling, specifically by identifying
-head-contact likelihoods and therefore alternative techniques to reduce such contact.
-Secondary research related to the impact of tackles on players was also conducted,
-finding a reduction in their number of yards run post-contact.
+The paper \href{https://link.springer.com/article/10.1007/s10439-020-02625-7}{“Validating Tackle
+Mechanics in American Football: Improving Safety and Performance”} (Maerlender et al.) discusses the
+development of a program to reduce the risk of serious injury from tackling, specifically by identifying
+head-contact likelihoods and therefore alternative techniques to reduce such contact. Secondary research
+related to the impact of tackles on player performance was also conducted, finding a reduction in
+their number of yards run post-contact.
 
-Similarly, “Effectiveness of the Heads Up Tackling (HUT) Program on Tackling Safety
-and Performance in American Football” (Matsuo et al.) also identifies a program to
-promote tackle safety, though this study focuses on an existing program and its
-observed impacts. (TODO)
+Similarly, \href{https://www.jstage.jst.go.jp/article/ijshs/16/0/16_201804/_article/-char/ja/}
+{“Effectiveness of the Heads Up Tackling (HUT) Program on Tackling Safety and Performance in American Football”}
+(Matsuo et al.) also identifies a program to promote tackle safety, though this study focuses
+on an existing program and its observed impacts. Results indicated that implementation of the
+studied HUT Program reduced rate and severity of player injury, with no detriment, or, in some
+cases, even benefit, to player performance.
 
-Lastly, “Quantitative and qualitative analysis of head and body impacts in American
-7v7 non-tackle football” (Jadischke et al.) (TODO)
+Lastly, \href{https://bmjopensem.bmj.com/content/6/1/e000638.abstract}{“Quantitative and qualitative
+analysis of head and body impacts in American 7v7 non-tackle football”} (Jadischke et al.) used video
+analysis to investigate the rate of head contact in the alternative non-tackle play style of
+American football. In a similar vein to the above studies, this research found that non-tackle
+football was associated with lower rates of head contact and therefore potentially lower rates of
+injury, though further research is needed.
+
+Outside of academia, many football fans conduct hobbyist analyses of their own, often
+concerning points, player performance, game trends, and so on. An example of this is
+the article \href{https://medium.com/@ezra.ford/tackling-metrics-with-big-data-0812b5ab65f0}{“Tackling Metrics with Big Data”}
+by Ezra Ford on Medium. In addition to being a subject of interest in and of themselves,
+these have applications in related sub-hobbies, such as sports betting and fantasy football,
+and can help fans maximize their success in those activities.
+
+As shown, the existing work on tackles in American football often concerns the implications of
+tackling, instead of the ability to predict and understand when/where/how tackles happen.
+Thus, our work intends to investigate these trends instead.
 
 \section{Proposed Work}
 
