@@ -220,7 +220,6 @@
 \section{Introduction}
 Every year, the Nation Football league hosts the NFL Big Data Bowl, a yearly sports data analytics competition which analyzes specific datasets provided by Next Gen Stats in order to encourage data-backed improvements to the NFL. The data, which aligns with the competition's yearly theme, "is the capture of real time location data, speed and acceleration for every player, every play on every inch of the field. Sensors throughout the stadium track tags placed on players' shoulder pads, charting individual movements within inches" (Next Gen Stats, 2024 https://nextgenstats.nfl.com/glossary). Specifically, the 2024 Big Data Bowl focuses on the theme of tackling in order to encourage the creation of metrics quantifying things like tackle probability, play impacts, expected points, and injury. Tackling is imperative to the sport of American football, as the defending team's main goal is to tackle the opposing player with the football as soon as possible in order to help prevent the team from scoring. As such, the dataset used to analyze tackling includes categories on game data, play data, player data, tackles data, and tracking data. The goal of this project is to utilize such metrics in order to find correlations between known information such as weight, height, and time during a game and the outcome of plays (whether or not the tackle was completed, whether the tackle was successful in terms of gameplay, etc.). 
 
-
 \section{Existing Work}
 A significant number of previous academic studies exist on the topic of
 tackling in American football. This section discusses three examples of those
@@ -261,22 +260,34 @@ Thus, our work intends to investigate these trends instead.
 
 \section{Proposed Work}
 
+In this project, we seek to find the effects of different attributes on the
+success rate and time of tackles and subsequently, how tackles effects the outcome
+of a game.
+To this end, we will be employing a variety of statistical techniques covered in
+both CSCI4502/5502 and from other classes.
+
+\subsection{Datasets}
 To analyze the effect of various traits of player, matches, and other factors on
-the timing and a success rate of tackle, we will be using data from the Kaggle
-NFL Big Data Bowl
-\href{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}{\underline{dataset}}
+the timing and a success rate of tackle, we will primarily be using data from
+the Kaggle NFL Big Data Bowl
+\footnote{\url{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}}
 specifically the files ``\verb|tackles.csv|'', ``\verb|games.csv|'',
 ``\verb|plays.csv|'' which contain data on the play, players, success, teams,
 etc. involved in a tackle.
 
+\subsection{Proposed Analysis}
 Our primary goal for this project is to find correlations between previously
 known information such as weight, height, and time during a game and the tackles
 performed (location, likelihood of success and number of tackles). To this end,
 we are proposing to try and find correlations between factors such as height and
-weight and frequency and likelihood of success of tackles, frequency analysis
-for examining which teams/players tend to engage in tackles, and time series
-analysis to understand the relationship between time during a game an frequency
-of tackles.
+weight of player and frequency and likelihood of success of tackles and
+frequency analysis for examining which teams/players tend to engage in tackles.
+
+We are also seeking to do time series analysis with the classical time series
+model to analyze the trend between time during a game an frequency of
+tackles. Additionally, we will use similar techniques to see if there is any
+trend in the number of tackles per game over time, though due to the limited
+scope of this dataset, we may need to use other data sources.
 
 In addition to this analysis, we also seek to analyze whether the risk of injury
 from tackles can be reduced and how much of an impact tackles have on the
