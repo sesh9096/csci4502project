@@ -1,0 +1,180 @@
+#+title: Analysis
+#+BIND: org-latex-title-command "\\begin{center}\\LARGE \\textbf{%t} \\end{center}\\begin{center} %a \\end{center}"
+#+OPTIONS: toc:nil num:nil date:nil
+#+LATEX_HEADER: \usepackage{geometry}
+#+LATEX_HEADER: \geometry{margin=0.8in}
+#+LATEX_HEADER_EXTRA: \usepackage{mdframed}
+#+LATEX_HEADER_EXTRA: \BeforeBeginEnvironment{minted}{\begin{mdframed}}
+#+LATEX_HEADER_EXTRA: \AfterEndEnvironment{minted}{\end{mdframed}}
+#+PROPERTY: header-args:python :session session :exports both :eval no-export
+* Setup
+#+begin_src python :results none
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+#+end_src
+
+Import data from [[https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data]]
+#+begin_src python
+tackles = pd.read_csv("../data/tackles.csv")
+plays = pd.read_csv("../data/plays.csv")
+games = pd.read_csv("../data/games.csv")
+players = pd.read_csv("../data/players.csv")
+tackles
+#+end_src
+
+#+RESULTS:
+#+begin_example
+           gameId  playId  nflId  tackle  assist  forcedFumble  pff_missedTackle
+0      2022090800     101  42816       1       0             0                 0
+1      2022090800     393  46232       1       0             0                 0
+2      2022090800     486  40166       1       0             0                 0
+3      2022090800     646  47939       1       0             0                 0
+4      2022090800     818  40107       1       0             0                 0
+...           ...     ...    ...     ...     ...           ...               ...
+17421  2022091113    2494  43533       0       0             0                 1
+17422  2022092502    3510  42406       0       0             0                 1
+17423  2022091113    3642  43478       0       0             0                 1
+17424  2022091901    3578  42431       0       0             0                 1
+17425  2022091901    3845  46199       0       0             0                 1
+
+[17426 rows x 7 columns]
+#+end_example
+
+Join data and store in =agg=. This will be used for future analysis
+#+begin_src python
+agg = tackles.join(games.set_index("gameId"), on = "gameId")
+agg = agg.join(players.set_index("nflId"), on = "nflId")
+agg = agg.join(plays.set_index(["playId", "gameId"]), on = ["playId", "gameId"], how = "inner")
+agg = agg.join(players.set_index("nflId"), on = "ballCarrierId", rsuffix = "_ball_carrier")
+agg
+#+end_src
+
+#+RESULTS:
+#+begin_example
+           gameId  playId  nflId  ...  collegeName_ball_carrier  position_ball_carrier  displayName_ball_carrier
+0      2022090800     101  42816  ...          Florida Atlantic                     RB          Devin Singletary
+1      2022090800     393  46232  ...                   Memphis                     RB         Darrell Henderson
+2      2022090800     486  40166  ...        Eastern Washington                     WR               Cooper Kupp
+3      2022090800     646  47939  ...               Mississippi                     TE               Dawson Knox
+4      2022090800     818  40107  ...                   Memphis                     RB         Darrell Henderson
+...           ...     ...    ...  ...                       ...                    ...                       ...
+17421  2022091113    2494  43533  ...           Louisiana State                     RB         Leonard Fournette
+17422  2022092502    3510  42406  ...      North Carolina State                     RB              Nyheim Hines
+17423  2022091113    3642  43478  ...             Arizona State                     RB             Rachaad White
+17424  2022091901    3578  42431  ...                Penn State                     RB             Miles Sanders
+17425  2022091901    3845  46199  ...            Michigan State                     QB              Kirk Cousins
+
+[17426 rows x 60 columns]
+#+end_example
+As expected, this has the same number of fields as tackles and more columns
+
+What we have to analyze
+#+begin_src python
+agg.columns
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Index(['gameId', 'playId', 'nflId', 'tackle', 'assist', 'forcedFumble',
+       'pff_missedTackle', 'season', 'week', 'gameDate', 'gameTimeEastern',
+       'homeTeamAbbr', 'visitorTeamAbbr', 'homeFinalScore',
+       'visitorFinalScore', 'height', 'weight', 'birthDate', 'collegeName',
+       'position', 'displayName', 'ballCarrierId', 'ballCarrierDisplayName',
+       'playDescription', 'quarter', 'down', 'yardsToGo', 'possessionTeam',
+       'defensiveTeam', 'yardlineSide', 'yardlineNumber', 'gameClock',
+       'preSnapHomeScore', 'preSnapVisitorScore', 'passResult', 'passLength',
+       'penaltyYards', 'prePenaltyPlayResult', 'playResult',
+       'playNullifiedByPenalty', 'absoluteYardlineNumber', 'offenseFormation',
+       'defendersInTheBox', 'passProbability', 'preSnapHomeTeamWinProbability',
+       'preSnapVisitorTeamWinProbability', 'homeTeamWinProbabilityAdded',
+       'visitorTeamWinProbilityAdded', 'expectedPoints', 'expectedPointsAdded',
+       'foulName1', 'foulName2', 'foulNFLId1', 'foulNFLId2',
+       'height_ball_carrier', 'weight_ball_carrier', 'birthDate_ball_carrier',
+       'collegeName_ball_carrier', 'position_ball_carrier',
+       'displayName_ball_carrier'],
+      dtype='object')
+#+end_example
+
+#+begin_example
+Index(['gameId', 'playId', 'nflId', 'tackle', 'assist', 'forcedFumble',
+       'pff_missedTackle', 'season', 'week', 'gameDate', 'gameTimeEastern',
+       'homeTeamAbbr', 'visitorTeamAbbr', 'homeFinalScore',
+       'visitorFinalScore', 'height', 'weight', 'birthDate', 'collegeName',
+       'position', 'displayName', 'ballCarrierId', 'ballCarrierDisplayName',
+       'playDescription', 'quarter', 'down', 'yardsToGo', 'possessionTeam',
+       'defensiveTeam', 'yardlineSide', 'yardlineNumber', 'gameClock',
+       'preSnapHomeScore', 'preSnapVisitorScore', 'passResult', 'passLength',
+       'penaltyYards', 'prePenaltyPlayResult', 'playResult',
+       'playNullifiedByPenalty', 'absoluteYardlineNumber', 'offenseFormation',
+       'defendersInTheBox', 'passProbability', 'preSnapHomeTeamWinProbability',
+       'preSnapVisitorTeamWinProbability', 'homeTeamWinProbabilityAdded',
+       'visitorTeamWinProbilityAdded', 'expectedPoints', 'expectedPointsAdded',
+       'foulName1', 'foulName2', 'foulNFLId1', 'foulNFLId2',
+       'height_ball_carrier', 'weight_ball_carrier', 'birthDate_ball_carrier',
+       'collegeName_ball_carrier', 'position_ball_carrier',
+       'displayName_ball_carrier'],
+      dtype='object')
+#+end_example
+* Simple graphs
+#+begin_src python :results graphics file output :file yards.png
+plt.rc('figure', figsize = (14, 7))
+fig, ax = plt.subplots()
+ax.hist(agg["yardsToGo"], bins = range(0, 40), edgecolor = 'C9', linewidth = 1)
+ax.set_title("Yards To Go")
+ax.set_xlabel("yards")
+# plt.show()
+#+end_src
+
+#+RESULTS:
+[[file:yards.png]]
+
+#+begin_src python
+agg["yardsToGo"].describe()
+#+end_src
+
+#+RESULTS:
+: count    17426.000000
+: mean         8.586710
+: std          3.893131
+: min          1.000000
+: 25%          6.000000
+: 50%         10.000000
+: 75%         10.000000
+: max         38.000000
+: Name: yardsToGo, dtype: float64
+
+Distance needed for a first down is quite frequently 10.
+
+#+begin_src python :results graphics file output :file time.png
+fig, ax = plt.subplots()
+ax.hist(agg["gameClock"], bins = 20, edgecolor = 'C9', linewidth = 1)
+ax.set_title("time")
+ax.set_xlabel("time")
+# plt.show()
+#+end_src
+
+#+RESULTS:
+[[file:time.png]]
+
+As time increases, number of tackles decreases, not sure if this is due to games ending early or some other reason yet.
+
+#+begin_src python  :results graphics file output :file defense.png
+agg.loc[agg["tackle"] == 1].groupby("defensiveTeam").count().plot.pie(y = "gameId")
+#+end_src
+
+#+RESULTS:
+[[file:defense.png]]
+
+
+#+begin_src python  :results graphics file output :file offense.png
+agg.loc[agg["tackle"] == 1].groupby("possessionTeam").count().plot.pie(y = "gameId")
+#+end_src
+
+#+RESULTS:
+[[file:offense.png]]
+
+Interestingly, all teams seem to have roughly the same number of plays with tackles
+* Future plans
+
+Use height, weight, position, etc. of player to predict whether they made a tackle during a game or over games
