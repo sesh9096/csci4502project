@@ -45,7 +45,7 @@
 %% for your publication.
 %%
 %%
-\documentclass[sigconf, hyperref={colorlinks=true,linkcolor=blue,urlcolor=blue}]{acmart}
+\documentclass[bibtex, sigconf, hyperref={colorlinks=true,linkcolor=blue,urlcolor=blue}]{acmart}
 
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -236,21 +236,21 @@ studies, one hobbyist analysis, and the foundation they lay for our proposed
 work.
 
 The paper \href{https://link.springer.com/article/10.1007/s10439-020-02625-7}{“Validating Tackle
-Mechanics in American Football: Improving Safety and Performance”} (Maerlender et al.) discusses the
+Mechanics in American Football: Improving Safety and Performance”}\cite{validatingtackles} (Maerlender et al.) discusses the
 development of a program to reduce the risk of serious injury from tackling, specifically by identifying
 head-contact likelihoods and therefore alternative techniques to reduce such contact. Secondary research
 related to the impact of tackles on player performance was also conducted, finding a reduction in
 their number of yards run post-contact.
 
 Similarly, \href{https://www.jstage.jst.go.jp/article/ijshs/16/0/16_201804/_article/-char/ja/}
-{“Effectiveness of the Heads Up Tackling (HUT) Program on Tackling Safety and Performance in American Football”}
+{“Effectiveness of the Heads Up Tackling (HUT) Program on Tackling Safety and Performance in American Football”}\cite{effectiveness}
 (Matsuo et al.) also identifies a program to promote tackle safety, though this study focuses
 on an existing program and its observed impacts. Results indicated that implementation of the
 studied HUT Program reduced rate and severity of player injury, with no detriment, or, in some
 cases, even benefit, to player performance.
 
 Lastly, \href{https://bmjopensem.bmj.com/content/6/1/e000638.abstract}{“Quantitative and qualitative
-analysis of head and body impacts in American 7v7 non-tackle football”} (Jadischke et al.) used video
+analysis of head and body impacts in American 7v7 non-tackle football”}\cite{quantitative} (Jadischke et al.) used video
 analysis to investigate the rate of head contact in the alternative non-tackle play style of
 American football. In a similar vein to the above studies, this research found that non-tackle
 football was associated with lower rates of head contact and therefore potentially lower rates of
@@ -349,6 +349,7 @@ exploring the data as best we can.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sources}
+\nocite{*}
 
 \end{document}
 \endinput
