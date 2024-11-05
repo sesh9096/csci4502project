@@ -1,0 +1,17 @@
+#!/bin/sh
+
+installed(){
+	command -v "$1" 2>&1 >/dev/null
+}
+if installed latexmk; then
+	echo "latexmk found"
+	latexmk -f -interaction=nonstopmode -pdf report.tex
+elif installed pdflatex; then
+  echo "no latexmk, doing my best to compile, hopefully this works"
+	pdflatex -interaction=nonstopmode -recorder "report.tex"
+	if installed bibtex; then
+		bibtex "report.aux"
+	fi
+	pdflatex -interaction=nonstopmode -recorder "report.tex"
+	pdflatex -interaction=nonstopmode -recorder "report.tex"
+fi
