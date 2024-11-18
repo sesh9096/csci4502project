@@ -324,9 +324,9 @@ The slight increase observed at 15 or 20 yards to go is likely due to penalties 
 \end{figure}
 \subsection{Predictor of Success}
 To determine if certain factors about a player and the way a tackle was
-performed made it more likely to succeed, we attempted to use a na\"ive bayesian
-classifier to predict the likelihood of a tackle succeeding based on the
-following attributes:
+performed made it more likely to succeed, we attempted to use a na\"ive
+Bayesian classifier to predict the likelihood of a tackle succeeding based on
+the following attributes:
 \begin{itemize}
 \item Weight: The player's height sorted into 3 categories: ($< 5'10'', 5'10''-6'2'', > 6'3''$)
 \item Height: The player's weight sorted into 3 categories (`Under 200', `200 - 250', `Over 250')
@@ -358,8 +358,8 @@ Our methods were unable to find significant clusters of positions where tackles
 occurred. As shown in the figure below, the locations of tackles do not appear
 to be in any statistically significant clusters. Notably, tackles tended to
 occur much more frequently close to the center of the field in both the $x$ and
-$y$ axes. One explanation for this is that players typically avoid these areas
-because they risk going out of bounds and incurring a penalty.
+$y$ axes. One explanation for this is that players may be forced out of bounds
+rather than tackled, which also ends the play.
 
 \begin{figure}[h]
   \centering
@@ -371,7 +371,7 @@ because they risk going out of bounds and incurring a penalty.
 \section{Future Work}
 Building off of the work done on predicting the likelihood of success of a
 tackle, we plan to use different models with the same attributes and comparing
-with the Na\"ive Bayes results to see which is more accurate.
+with the na\"ive Bayes results to see which is more accurate.
 We plan on using a decision tree or random forest approach which should also
 provide insight as to which attributes are most important in predicting
 success.
