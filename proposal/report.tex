@@ -369,6 +369,9 @@ rather than tackled, which also ends the play.
 \end{figure}
 
 \section{Future Work}
+
+\subsection{Comparing prediction models}
+
 Building off of the work done on predicting the likelihood of success of a
 tackle, we plan to use different models with the same attributes and comparing
 with the na\"ive Bayes results to see which is more accurate.
@@ -376,31 +379,32 @@ We plan on using a decision tree or random forest approach which should also
 provide insight as to which attributes are most important in predicting
 success.
 
-In regards to the locations of tackles, we also plan to classify tackles as
-success and failures to see if there are clusters where success or failure is
-more likely.
-Additionally, we also plan on looking into using other variables from the
-tracking data such as speed and direction to determine if there are any
-commonly occurring values for these variables.
-We also plan on examining the data for outliers which may indicate that a
-certain combination of attributes will make a tackle much more likely or less
-likely to succeed.
-Considering the role of defenders in a game, we also plan on examining if there
-are certain strategies which allow the ball carrier to move past defenders.
+\subsection{Expanding cluster analysis}
 
-Expanding analysis beyond looking at the likelihood of tackles succeeding,
-we also plan on examining what impact tackles have on the course of the game.
-We will try to find any events which are particularly important for the course
-of the game using outlier analysis.
-Additionally, we will see if the number of successful tackles has any effect on
-which team will win the game.
+In regards to the locations of tackles, we plan to classify tackles as
+successes and failures to see if there are clusters where success or failure is
+more likely. Additionally, we plan on looking into using other variables from
+the tracking data such as speed and direction to determine if there are any
+commonly occurring values for these variables. We will look for outliers which
+may indicate when a certain combination of attributes will make a tackle much
+more likely or less likely to succeed. Considering the role of players in a
+game, we also plan on examining if there are certain strategies which allow the
+ball carrier to avoid tackles from defenders, using scatter plot visualizations
+and cluster analysis as needed.
 
-\subsection{Not Currently in Scope}
+\subsection{Tackles as a predictor of victory}
+
+Expanding beyond looking at the likelihood of tackles succeeding, we will
+explore how strong of a correlation exists between defensive players making or
+or missing tackles and their team winning games.
+
+\subsection{Other considerations}
+
 We had considered using temporal data particularly the tracking data to see if
 we can find any patterns over time. However, this may be difficult due to the
 lack of historical data, short period of the tracking data, and its
 incompleteness i.e. only including a few frames around each notable event in the
-game.
+game. This was deemed to be outside the scope of the project.
 
 \section{Evaluation}
 
@@ -436,11 +440,12 @@ exploring the data as best we can.
     9/24 - 9/26   & Project Proposal \\
     10/1 - 10/3   & Data discovery and cleaning complete \\
     10/8 - 10/10  & Begin initial analysis \\
-    11/5 - 11/7   & Project Checkpoint Report \\
-    11/12 - 11/14 & Analysis Complete \\
-    12/3 - 12/5   & Visualizations in final deliverable form \\
+    11/5 - 11/7   & Phase 1 Analysis \& Visualizations Complete \\
+    11/12 - 11/14 & Project Checkpoint Report \\
                   & Summarize findings \\
+    12/3 - 12/5   & Phase 2 Analysis \& Visualizations Complete \\
     12/10 - 12/12 & Project Final Report \\
+                  & Summarize findings \\
     \bottomrule
   \end{tabular}
 \end{table}
