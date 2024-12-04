@@ -267,7 +267,7 @@ As shown, the existing work on tackles in American football often concerns the i
 tackling, instead of the ability to predict and understand when/where/how tackles happen.
 Thus, our work intends to investigate these trends instead.
 
-\section{Proposed Work}
+\section{Methodology}
 
 In this project, we seek to find the effects of different attributes on the
 success rate and time of tackles and subsequently, how tackles effects the outcome
@@ -280,11 +280,14 @@ To analyze the effect of various traits of player, matches, and other factors on
 the timing and a success rate of tackle, we will primarily be using data from
 the Kaggle NFL Big Data Bowl
 \cite{nflkaggle}
-\footnote{\url{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}}
+% \footnote{\url{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}}
 specifically the files ``\verb|tackles.csv|'', ``\verb|games.csv|'',
 ``\verb|plays.csv|'' which contain data on the play, players, success, teams,
 etc. involved in a tackle.
+We will also be examining data from 9 weeks of tracking data (``\verb|tracking_week_[1-9].csv|'')
+to determine the effects of factors such as position on the field or movement at the time of a tackle.
 
+% TODO: Maybe move some of this to future analysis?
 \subsection{Proposed Analysis}
 Our primary goal for this project is to find correlations between previously
 known information such as weight, height, and time during a game and the tackles
@@ -293,16 +296,118 @@ we are proposing to try and find correlations between factors such as height and
 weight of player and frequency and likelihood of success of tackles and
 frequency analysis for examining which teams/players tend to engage in tackles.
 
-We are also seeking to do time series analysis with the classical time series
-model to analyze the trend between time during a game an frequency of
-tackles. Additionally, we will use similar techniques to see if there is any
-trend in the number of tackles per game over time, though due to the limited
-scope of this dataset, we may need to use other data sources.
+% We are also seeking to do time series analysis with the classical time series
+% model to analyze the trend between time during a game an frequency of
+% tackles. Additionally, we will use similar techniques to see if there is any
+% trend in the number of tackles per game over time, though due to the limited
+% scope of this dataset, we may need to use other data sources.
 
 In addition to this analysis, we also seek to analyze whether the risk of injury
 from tackles can be reduced and how much of an impact tackles have on the
 outcome of a game or visa versa. We will also seek to analyze the difference in
 frequencies of tackles between different teams and positions.
+
+\section{Accomplished Work}
+\subsection{Distance Before Tackle}
+By analyzing the frequency of \verb|yardsToGo|, we were able to determine that
+the vast majority of tackles occurred at around 10 yards. This is likely because
+10 yards is the starting point for each round. We also see more observations
+less than 10 yards to go than greater meaning moving forward is much more likely than backwards.
+% Negative yardage: More than 10 yards to go, meaning the previous play lost yards. This can happen from an offensive penalty, a QB sack, or a tackle in the backfield.
+The slight increase observed at 15 or 20 yards to go is likely due to penalties as -5 or -10 yards are common penalties.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{../src/yards.png}
+  \caption{yards to go}
+  \Description{A histogram of yards to go, has a peak at 10, more observations less than 10 than greater, and smaller peaks at 5, 10, -5, -10}
+\end{figure}
+\subsection{Predictor of Success}
+To determine if certain factors about a player and the way a tackle was
+performed made it more likely to succeed, we attempted to use a na\"ive
+Bayesian classifier to predict the likelihood of a tackle succeeding based on
+the following attributes:
+\begin{itemize}
+\item Weight: The player's height sorted into 3 categories: ($< 5'10'', 5'10''-6'2'', > 6'3''$)
+\item Height: The player's weight sorted into 3 categories (`Under 200', `200 - 250', `Over 250')
+\item Position: The player's position on the team (FB, QB, RB, TE, WR)
+\item Assist: Whether or not the there were multiple people involved in the tackle
+\item forcedFumble: Whether or not the ball was dislodged by the defender
+\end{itemize}
+These attributes were chosen because they were either intrinsic to the player
+and likely meaningful to the game, or involved with how a tackle performed,
+and thus could inform decisions about how to be more successful with future
+tackles.
+
+We used $70\%$ of the data for training the bayesian model and the rest for
+testing its effectiveness in predicting success. The resulting model was able to
+predict whether or not a tackle succeeded with accuracy of 88.6\% and F1 Score
+of 0.8888216807787944. This shows that the factors chosen were effective in
+predicting the likelihood of a tackle succeeding.
+
+\subsection{Grouping tackles}
+Examining 9 weeks of tracking data, we attempted to determine if there were any
+patterns in where tackles occurred. This analysis used a subset of the tracking
+data, specifically we filtered the dataset to only include the attributes for
+the football and when a tackle occurred. We then used the $x$ and $y$ attributes
+which correspond to the position of the football in yards at the time to the
+tackle to determine if there any patterns in position. We attempted to use
+k-means clustering with varying numbers of clusters to mine for clusters.
+
+Our methods were unable to find significant clusters of positions where tackles
+occurred. As shown in the figure below, the locations of tackles do not appear
+to be in any statistically significant clusters. Notably, tackles tended to
+occur much more frequently close to the center of the field in both the $x$ and
+$y$ axes. One explanation for this is that players may be forced out of bounds
+rather than tackled, which also ends the play.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{k-means}
+  \caption{k-means analysis of week 1 data}
+  \Description{A plot of the x and y coordinates of tackles in week 1 data}
+\end{figure}
+
+\section{Future Work}
+
+\subsection{Comparing prediction models}
+
+Building off of the work done on predicting the likelihood of success of a
+tackle, we plan to use different models with the same attributes and comparing
+with the na\"ive Bayes results to see which is more accurate.
+We plan on using a decision tree or random forest approach which should also
+provide insight as to which attributes are most important in predicting
+success.
+
+\subsection{Expanding cluster analysis}
+
+In regards to the locations of tackles, we plan to classify tackles as
+successes and failures to see if there are clusters where success or failure is
+more likely. Additionally, we plan on looking into using other variables from
+the tracking data such as speed and direction to determine if there are any
+commonly occurring values for these variables. We will look for outliers which
+may indicate when a certain combination of attributes will make a tackle much
+more likely or less likely to succeed. Considering the role of players in a
+game, we also plan on examining if there are certain strategies which allow the
+ball carrier to avoid tackles from defenders, using scatter plot visualizations
+and cluster analysis as needed.
+
+\subsection{Tackles as a predictor of victory}
+
+Expanding beyond looking at the likelihood of tackles succeeding, we will
+explore how strong of a correlation exists between defensive players making or
+or missing tackles and their team winning games.
+We plan on using data on the number of tackles performed during a game and see
+how this is correlated with the game's outcome.
+This will provide insight on how tackles can affect the course of the game.
+
+\subsection{Other considerations}
+
+We had considered using temporal data particularly the tracking data to see if
+we can find any patterns over time. However, this may be difficult due to the
+lack of historical data, short period of the tracking data, and its
+incompleteness i.e. only including a few frames around each notable event in the
+game. This was deemed to be outside the scope of the project.
 
 \section{Evaluation}
 
@@ -338,11 +443,12 @@ exploring the data as best we can.
     9/24 - 9/26   & Project Proposal \\
     10/1 - 10/3   & Data discovery and cleaning complete \\
     10/8 - 10/10  & Begin initial analysis \\
-    11/5 - 11/7   & Project Checkpoint Report \\
-    11/12 - 11/14 & Analysis Complete \\
-    12/3 - 12/5   & Visualizations in final deliverable form \\
-                  & Summarize findings \\
+    11/5 - 11/7   & Phase 1 Analysis \& Visualizations Complete \\
+    11/12 - 11/14 & Project Checkpoint Report \\
+                  & Summarize findings \& future work \\
+    12/3 - 12/5   & Phase 2 Analysis \& Visualizations Complete \\
     12/10 - 12/12 & Project Final Report \\
+                  & Summarize findings \\
     \bottomrule
   \end{tabular}
 \end{table}
