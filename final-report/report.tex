@@ -336,11 +336,15 @@ from tackles can be reduced and how much of an impact tackles have on the
 outcome of a game or visa versa. We will also seek to analyze the difference in
 frequencies of tackles between different teams and positions.
 
-\section{Accomplished Work} \subsection{Distance Before Tackle} By analyzing the
-frequency of \verb|yardsToGo|, we were able to determine that the vast majority
-of tackles occurred at around 10 yards. This is likely because 10 yards is the
-starting point for each round. We also see more observations less than 10 yards
-to go than greater meaning moving forward is much more likely than backwards.
+\section{Accomplished Work}
+
+\subsection{Distance Before Tackle}
+
+By analyzing the frequency of \verb|yardsToGo|, we were able to determine that
+the vast majority of tackles occurred at around 10 yards. This is likely because
+10 yards is the starting point for each round. We also see more observations
+less than 10 yards to go than greater meaning moving forward is much more likely
+than backwards.
 % Negative yardage: More than 10 yards to go, meaning the previous play lost
 % yards. This can happen from an offensive penalty, a QB sack, or a tackle in
 % the backfield.
@@ -404,12 +408,12 @@ rather than tackled, which also ends the play.
   \centering
   \includegraphics[width=\linewidth]{k-means}
   \caption{k-means analysis of football position}
-  \Description{A plot of the x and y coordinates of tackles in week 1 data}
+  \Description{A plot of the x and y coordinates of tackles}
 \end{figure}
 
-\section{Future Work}
-
 \subsection{Comparing prediction models}
+
+% TODO: Add results (Isaac & Tim)
 
 Building off of the work done on predicting the likelihood of success of a
 tackle, we plan to use different models with the same attributes and comparing
@@ -418,6 +422,8 @@ a decision tree or random forest approach which should also provide insight as
 to which attributes are most important in predicting success.
 
 \subsection{Expanding cluster analysis}
+
+% TODO: Add results (Sean)
 
 In regards to the locations of tackles, we plan to classify tackles as successes
 and failures to see if there are clusters where success or failure is more
@@ -430,7 +436,31 @@ also plan on examining if there are certain strategies which allow the ball
 carrier to avoid tackles from defenders, using scatter plot visualizations and
 cluster analysis as needed.
 
+\subsection{Offensive strategies}
+
+The game of American football is a constant battle of cat-and-mouse between the
+offense, in posession of the ball, and the defense, attempting to block the
+offense's advance. NFL offenses are always looking for new strategies to get
+ahead.
+
+With some background knowledge of the game in mind, we aimed to investigate
+three potential strategies for NFL offenses.
+
+\subsubsection{Strategy: Optimizing the weight of running backs}
+
+% TODO: Add results (Tim)
+
+\subsubsection{Strategy: Increasing passing yards}
+
+% TODO: Add results (Sean)
+
+\subsubsection{Strategy: Choosing specific formations}
+
+% TODO: Add results (Tim)
+
 \subsection{Tackles as a predictor of victory}
+
+% TODO: Add results (Isaac)
 
 Expanding beyond looking at the likelihood of tackles succeeding, we will
 explore how strong of a correlation exists between defensive players making or
@@ -439,7 +469,7 @@ number of tackles performed during a game and see how this is correlated with
 the game's outcome.  This will provide insight on how tackles can affect the
 course of the game.
 
-\subsection{Other considerations}
+\section{Other considerations}
 
 We had considered using temporal data particularly the tracking data to see if
 we can find any patterns over time. However, this may be difficult due to the
