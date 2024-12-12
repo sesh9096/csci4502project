@@ -325,18 +325,63 @@ we are proposing to try and find correlations between factors such as height and
 weight of player and frequency and likelihood of success of tackles and
 frequency analysis for examining which teams/players tend to engage in tackles.
 
-% We are also seeking to do time series analysis with the classical time series
-% model to analyze the trend between time during a game an frequency of tackles.
-% Additionally, we will use similar techniques to see if there is any trend in
-% the number of tackles per game over time, though due to the limited scope of
-% this dataset, we may need to use other data sources.
-
 In addition to this analysis, we also seek to analyze whether the risk of injury
 from tackles can be reduced and how much of an impact tackles have on the
 outcome of a game or visa versa. We will also seek to analyze the difference in
 frequencies of tackles between different teams and positions.
 
-\section{Accomplished Work}
+\subsection{Offensive Strategies}
+
+NFL offenses are always looking for ways to stay ahead of defenses. Putting
+ourselves in the shoes of an NFL offensive coordinator, we formulated three
+potential offensive strategies to investigate.
+
+\subsubsection{Strategy: Optimizing the weight of running backs}
+
+Many play designs involve the quarterback handing the ball off to a player
+designated as the running back (RB), who attempts to run forward for as many
+yards as possible before being tackled or forced out of bounds by the defense. 
+
+For this offensive strategy, we will check if optimizing the weight of a running
+back is associated with a more favorable outcome for an increase in missed
+tackles, and if playing heavier running backs is associated with a positive
+impact on tackle performance.
+
+\subsubsection{Strategy: Increasing passing yards}
+
+For a receiver, making catches is important, but just making the catch isn't all
+that matters. Yards after catch, the distance a receiver travels after making a
+catch but before a tackle, being forced out of bounds, or scoring, is also an
+important metric. Higher yards after catch will result in more yards gained
+during passing plays.
+
+To increase yards after catch, offenses may need to make longer passes down the
+field to areas where there are fewer defenders nearby to make the tackle. For
+this offensive stragey, we analyze whether longer passes resulting in more yards
+after catch is supported by the dataset.
+
+\subsubsection{Strategy: Choosing specific offensive formations}
+
+An offensive coach must decide on a formation to use depending on what the play
+is trying to achieve, e.g. short run or long pass. The game permits several
+different formation types, with different formations placing players at
+different locations behind the line of scrimmage, or the line which separates
+offense and defense at the start of a play and marks the distance remaining for
+a first down.
+
+A formation also directs the movement of players after a play begins, based on
+their positions in the game. For example, a wide reciever may be directed to run
+down the field to provide a target for a pass. Defenses are allowed to respond
+to offensive formations based on how the offensive players line up, but may not
+always know the offense's full intentions.
+
+For this offensive strategy, we will analyze offensive formations to see if any
+formation types are associated with more favorable outcomes for offenses seeking
+to increase the amount of plays with missed tackles. We will also determine how
+offensive formation preferences change based on variables such as down and
+distance.
+
+\section{Evaluation}
 
 \subsection{Distance Before Tackle}
 
@@ -454,7 +499,7 @@ three potential strategies for NFL offenses.
 
 % TODO: Add results (Sean)
 
-\subsubsection{Strategy: Choosing specific formations}
+\subsubsection{Strategy: Choosing specific offensive formations}
 
 % TODO: Add results (Tim)
 
