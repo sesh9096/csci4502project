@@ -314,9 +314,9 @@ etc. involved in a tackle.  We will also be examining data from 9 weeks of
 tracking data (``\verb|tracking_week_[1-9].csv|'') to determine the effects of
 factors such as position on the field or movement at the time of a tackle.
 
-% TODO: Maybe move some of this to future analysis?
+\subsection{Exploritory analysis}
 
-\subsection{Proposed Analysis}
+% TODO: Revise these two paragraphs to fit work already done:
 
 Our primary goal for this project is to find correlations between previously
 known information such as weight, height, and time during a game and the tackles
@@ -330,13 +330,13 @@ from tackles can be reduced and how much of an impact tackles have on the
 outcome of a game or visa versa. We will also seek to analyze the difference in
 frequencies of tackles between different teams and positions.
 
-\subsection{Offensive Strategies}
+\subsection{Offensive strategies}
 
 NFL offenses are always looking for ways to stay ahead of defenses. Putting
 ourselves in the shoes of an NFL offensive coordinator, we formulated three
 potential offensive strategies to investigate.
 
-\subsubsection{Strategy: Optimizing the weight of running backs}
+\subsubsection{Optimizing the weight of running backs}
 
 Many play designs involve the quarterback handing the ball off to a player
 designated as the running back (RB), who attempts to run forward for as many
@@ -347,7 +347,7 @@ back is associated with a more favorable outcome for an increase in missed
 tackles, and if playing heavier running backs is associated with a positive
 impact on tackle performance.
 
-\subsubsection{Strategy: Increasing passing yards}
+\subsubsection{Increasing passing yards}
 
 For a receiver, making catches is important, but just making the catch isn't all
 that matters. Yards after catch, the distance a receiver travels after making a
@@ -360,7 +360,7 @@ field to areas where there are fewer defenders nearby to make the tackle. For
 this offensive stragey, we analyze whether longer passes resulting in more yards
 after catch is supported by the dataset.
 
-\subsubsection{Strategy: Choosing specific offensive formations}
+\subsubsection{Choosing specific offensive formation types}
 
 An offensive coach must decide on a formation to use depending on what the play
 is trying to achieve, e.g. short run or long pass. The game permits several
@@ -470,6 +470,8 @@ to which attributes are most important in predicting success.
 
 % TODO: Add results (Sean)
 
+% TODO: The following paragraph revised and under methodology:
+
 In regards to the locations of tackles, we plan to classify tackles as successes
 and failures to see if there are clusters where success or failure is more
 likely. Additionally, we plan on looking into using other variables from the
@@ -483,29 +485,121 @@ cluster analysis as needed.
 
 \subsection{Offensive strategies}
 
-The game of American football is a constant battle of cat-and-mouse between the
-offense, in posession of the ball, and the defense, attempting to block the
-offense's advance. NFL offenses are always looking for new strategies to get
-ahead.
+\subsubsection{Optimizing the weight of running backs}
 
-With some background knowledge of the game in mind, we aimed to investigate
-three potential strategies for NFL offenses.
+Running backs aren't significantly heavier than other offensive players. The
+heaviest players play at the key blocker positions of center (C), offensive
+guard (G), and offensive tackle (T), where the goal is to block defensive
+players from entering the offensive backfield and running long distances is
+rare. Players playing quarterback (QB), wide reciever (WR), and tight end (TE)
+don't need to be as heavy to do their jobs effectively. Players playing at wide
+receiver (WR) come in at the lightest weight, which makes sense for a player
+needing to be agile enough to make mid-air catches.
 
-\subsubsection{Strategy: Optimizing the weight of running backs}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{weight-of-offensive-players.png}
+  \caption{Weight of offensive players, grouped by position}
+\end{figure}
 
-% TODO: Add results (Tim)
+For the rest of this analysis, we focused on played running backs and removed
+those who weren't involved in at least one play. The weight of played running
+backs is roughly normally distributed, with a mean of 213.82 pounds and standard
+deviation of 12.75 pounds. This was confirmed using a quartile-quartile (QQ)
+probability plot, which also revealed some outliers at the tails.
 
-\subsubsection{Strategy: Increasing passing yards}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{running-back-weight.png}
+  \caption{Histogram of played running back weight}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{running-back-weight-qq.png}
+  \caption{QQ plot of played running back weight}
+\end{figure}
+
+We binned running backs by weight into 5 bins to determine if running back
+weight had an affect on the number of plays with at least one missed tackle.
+Ultimately, it was inconclusive whether running back weight had a significant
+impact on tackle performance. The dataset lacked a sufficient number of missed
+tackle observations to meet our target number of at least 5 for each bin.
+
+\begin{table}[H]
+  \caption{Running back weight and play counts}
+  \label{tab:freq}
+  \begin{tabular}{lll}
+    \toprule
+    Weight category & Missed tackle & Tackle or assist (not missed) \\
+    \midrule
+    185 - 198 & 4 & 463 \\
+    198 - 211 & 9 & 2007 \\
+    211 - 224 & 17 & 2504 \\
+    224 - 237 & 14 & 1078 \\
+    237 - 250 & 2 & 596 \\
+  \end{tabular}
+\end{table}
+
+\subsubsection{Increasing passing yards}
 
 % TODO: Add results (Sean)
 
-\subsubsection{Strategy: Choosing specific offensive formations}
+\subsubsection{Choosing specific offensive formation types}
 
-% TODO: Add results (Tim)
+Examining the Plays data, we found six formation types played by offenses:
+Empty, I-formation, Jumbo, Pistol, Shotgun, Singleback, and Wildcat. Overall,
+Shotgun is the most popular formation type, followed by Singleback.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{plays-by-tackle-result.png}
+  \caption{Plays by tackle result, grouped by offensive formation}
+\end{figure}
+
+However, formation distributions change based on down and distance. One special
+case is third and long situations (yards to go greater than 10, as a result of
+penalties, quarterback sacks, or other negative yardage plays). For these plays,
+picking up a large amount of yards is crucial to the offense maintaining
+possession of the ball.
+
+For third and long situations we found that the popularity of the Singleback
+formation dropped considerably, and the popularity of the Empty formation rose
+considerably, compared to the overall distribution. This supports a conclusion
+that Empty formations are optimized for long passes down the field, which may
+have a lower chance of success overall but are seen as necessary to convert a
+third and long.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{plays-by-tackle-result-third-and-long.png}
+  \caption{Plays by tackle result in third and long situations, grouped by
+  offensive formation}
+\end{figure}
+
+Missed tackles are very detrimental for a defense, as the majority of offensive
+touchdown plays involved at least one.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]
+  {plays-by-tackle-result-offensive-touchfown-plays.png}
+  \caption{Plays by tackle result resulting in an offensive touchdown, grouped
+  by offensive formation}
+\end{figure}
+
+We performed a chi-squared test to determine if offensive formation had an
+affect on the number of plays with at least one missed tackle. Ultimately, with
+\textit{p} = 0.888, it was insufficient to disprove the null hypothesis and find
+that the offensive formation had a significant impact on tackle performance. The
+dataset lacked a sufficient number of missed tackle observations and was heavily
+imbalanced toward certain offensive formations.
 
 \subsection{Tackles as a predictor of victory}
 
 % TODO: Add results (Isaac)
+
+% TODO: The following paragraph revised and under methodology:
 
 Expanding beyond looking at the likelihood of tackles succeeding, we will
 explore how strong of a correlation exists between defensive players making or
@@ -514,7 +608,21 @@ number of tackles performed during a game and see how this is correlated with
 the game's outcome.  This will provide insight on how tackles can affect the
 course of the game.
 
-\section{Other considerations}
+\section{Discussion}
+
+\subsection{Imbalances in tackle observations}
+
+% TODO
+
+\subsection{Other sources of data}
+
+% TODO
+
+\subsection{Expanding project scope}
+
+% TODO
+
+\subsection{Utilization of tracking data}
 
 We had considered using temporal data particularly the tracking data to see if
 we can find any patterns over time. However, this may be difficult due to the
@@ -522,53 +630,35 @@ lack of historical data, short period of the tracking data, and its
 incompleteness i.e. only including a few frames around each notable event in the
 game. This was deemed to be outside the scope of the project.
 
-\section{Evaluation}
+\subsection{Reflection}
 
-As with any form of data analysis, we aim to find meaningful patterns and trends
-that can illuminate bigger truths about our area of study without unwarranted
-manipulation. Additionally, in order to conclude that these patterns and trends
-are in fact meaningful, we must be able to disprove the null hypothesis.
+As with any form of data analysis, we aimed to find meaningful patterns and
+trends that can illuminate bigger truths about our area of study without
+unwarranted manipulation. Additionally, in order to conclude that these patterns
+and trends are in fact meaningful, we must be able to disprove the null
+hypothesis.
 
 In essence, if we are mining the data for the effect of an example X variable,
 the null hypothesis would state that there is no statistical difference in
 tackle rate that can be attributed to X variable, and that any observed
-difference is due to nothing more than chance.  Thus, in order to disprove it,
+difference is due to nothing more than chance. Thus, in order to disprove it,
 the pattern would need to appear a sufficient amount of times within the dataset
 to surpass the significance level (typically set at 5\%).
 
 Notably, this is not the same as \textit{proving} the hypothesis. Rather, we
-will likely only be able to disprove that it does not hold. This is often the
-case with real-world data, and we will still be able to present our findings
-with some significance if that is the case.
+only had the ability to disprove that it does not hold. This is often the case
+with real-world data, and we are still be able to present our findings with some
+significance if that is the case.
 
-In addition to these metrics, we will evaluate our work based on the
-thoroughness of our investigation and our consideration of all factors.
-Real-world data is rarely straightforward, and contains many confounding
-variables that can all have impacts on the observed results.  Accordingly, we
-will not necessarily make finding an “answer” our goal, but instead focus on
-exploring the data as best we can.
+In addition to these metrics, we evaluated our work based on the thoroughness of
+our investigation and our consideration of all factors. Real-world data is
+rarely straightforward, and contains many confounding variables that can all
+have impacts on the observed results. Accordingly, we didn't make make finding
+an “answer” our goal, but instead focused on exploring the data as best we can.
 
-\section{Milestones}
+\section{Conclusion}
 
-\begin{table}[H]
-  \caption{Milestones for the semester}
-  \label{tab:freq}
-  \begin{tabular}{c|l}
-    \toprule
-    Date & Milestone \\
-    \midrule
-    9/24 - 9/26   & Project Proposal \\
-    10/1 - 10/3   & Data discovery and cleaning complete \\
-    10/8 - 10/10  & Begin initial analysis \\
-    11/5 - 11/7   & Phase 1 Analysis \& Visualizations Complete \\
-    11/12 - 11/14 & Project Checkpoint Report \\
-                  & Summarize findings \& future work \\
-    12/3 - 12/5   & Phase 2 Analysis \& Visualizations Complete \\
-    12/10 - 12/12 & Project Final Report \\
-                  & Summarize findings \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+% TODO
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sources}
