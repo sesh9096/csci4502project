@@ -389,12 +389,8 @@ By analyzing the frequency of \verb|yardsToGo|, we were able to determine that
 the vast majority of tackles occurred at around 10 yards. This is likely because
 10 yards is the starting point for each round. We also see more observations
 less than 10 yards to go than greater meaning moving forward is much more likely
-than backwards.
-% Negative yardage: More than 10 yards to go, meaning the previous play lost
-% yards. This can happen from an offensive penalty, a QB sack, or a tackle in
-% the backfield.
-The slight increase observed at 15 or 20 yards to go is likely due to penalties
-as -5 or -10 yards are common penalties.
+than backwards. The slight increase observed at 15 or 20 yards to go is likely
+due to penalties as -5 or -10 yards are common penalties.
 
 \begin{figure}[h]
   \centering
@@ -459,6 +455,8 @@ rather than tackled, which also ends the play.
 \subsection{Comparing prediction models}
 
 % TODO: Add results (Isaac & Tim)
+
+% TODO: The following paragraph revised and under methodology:
 
 Building off of the work done on predicting the likelihood of success of a
 tackle, we plan to use different models with the same attributes and comparing
@@ -680,7 +678,46 @@ an “answer” our goal, but instead focused on exploring the data as best we c
 
 \section{Conclusion}
 
-% TODO
+\subsection{Predicting tackle success}
+
+\subsubsection{Exploritory analysis}
+
+% TODO: Add conclusion (Isaac & Sean)
+
+\subsubsection{Grouping tackles}
+
+% TODO: Add conclusion (Tim & Sean)
+
+\subsubsection{Classifying tackles}
+
+% TODO: Add conclusion (Isaac & Tim)
+
+\subsection{Offensive strategies}
+
+We tested three offensive strategies for their usefulness.
+
+\subsubsection{Optimizing the weight of running backs}
+
+The weight of played running backs is roughly normally distributed, \textit{m} =
+213.82 pounds, \textit{sd} = 12.75 pounds. Running backs aren't significantly
+heaver than other offensive players. We were not able to find an association
+between running back weight and missed tackles.
+
+\subsubsection{Increasing passing yards}
+
+% TODO: Add conclusion (Sean)
+
+\subsubsection{Choosing specific offensive formation types}
+
+The dataset contains six offensive formation types, with Shotgun and and
+Singback being the most popular overall. Offensive formation preferences change
+based on down and distance, suggesting that some formations work better
+depending on what the offense's goals are. We were not able to find an
+association between offensive formation and missed tackles.
+
+\subsection{Tackles as a predictor of victory}
+
+% TODO: Add conclusion (Isaac)
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sources}
