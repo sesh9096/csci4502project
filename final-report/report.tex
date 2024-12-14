@@ -329,8 +329,11 @@ factors such as position on the field or movement at the time of a tackle.
 % TODO: Revise these two paragraphs to fit work already done:
 
 Our primary goal for this project was to find correlations between previously
+Our primary goal for this project was to find correlations between previously
 known information such as weight, height, and time during a game and the tackles
 performed (location, likelihood of success and number of tackles). To this end,
+we aimed to find correlations between factors such as height and
+weight of player, and frequency and likelihood of success of tackles, as well as
 we aimed to find correlations between factors such as height and
 weight of player, and frequency and likelihood of success of tackles, as well as
 frequency analysis for examining which teams/players tend to engage in tackles.
@@ -551,6 +554,13 @@ doing and the ball carrier must outrun multiple defenders.
 
 % TODO: Add results (Isaac & Tim)
 
+When comparing the predictive models of tackle likelihood based on player attributes,
+the differences between the naives Bayes and decision tree classifiers was very small.
+They had identical accuracy and F1-scores under the original dataset, and very similar ones
+under the adjusted SMOTE dataset. Thus, in terms of predictive power, neither is necessarily
+better than the other. However, the decision tree offers a more easily interpretable
+visual representation, while the Bayes model is more flexible in terms of programming and
+individual predictions, so each has their own strengths and weaknesses in practical use.
 When comparing the predictive models of tackle likelihood based on player attributes,
 the differences between the naives Bayes and decision tree classifiers was very small.
 They had identical accuracy and F1-scores under the original dataset, and very similar ones
@@ -793,6 +803,9 @@ an “answer” our goal, but instead focused on exploring the data as best we c
 Even if we were unable to find conclusive or applicable implications for play strategies,
 we value what information our work does provide, and look forward to the future work
 that may result.
+Even if we were unable to find conclusive or applicable implications for play strategies,
+we value what information our work does provide, and look forward to the future work
+that may result.
 
 \section{Conclusion}
 
@@ -854,6 +867,13 @@ skewed towards them.
 Even so, the number of made (or missed) tackles does not have strong predictive ability with regards to
 a team's victory, whether or not the dataset was adjusted with SMOTE. We were not able to find an
 association between number of tackles and winning games.
+As previously noted, the provided dataset is unfortunately limited in terms of the representation of
+missed tackles. Many more made tackles are available in the data, and thus predictive classifiers are
+skewed towards them.
+
+Even so, the number of made (or missed) tackles does not have strong predictive ability with regards to
+a team's victory, whether or not the dataset was adjusted with SMOTE. We were not able to find an
+association between number of tackles and winning games.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sources}
@@ -874,6 +894,7 @@ received unauthorized assistance.
     \item Classifying tackles: Na\"ive Bayesian
     \item Classifying tackles: Decision tree
     \item Tackles as a predictor of victory: Na\"ive Bayesian
+    \item Classifying tackles \& Tackles as a predictor: SMOTE re-analysis
     \item Classifying tackles \& Tackles as a predictor: SMOTE re-analysis
   \end{itemize}
   \item Sean Shi
