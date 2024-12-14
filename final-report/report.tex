@@ -476,10 +476,27 @@ and once balanced, their predictive abilities are no longer as strong.
 
 \subsection{Relevance of Tackles to Game Wins}
 
-% TODO - Isaac
-
 Additionally, to determine if the quantity of tackles themselves contributed to the likelihood
-of winning a game,
+of winning a game, another naive Bayesian classifier was constructed based on the number of successful
+tackles performed by each team during a game.
+
+From the provided dataset of tackles, the number of successful tackles was aggregated by game and team.
+This was then combined with whether or not the team won the game in question. From there, the number of
+tackles made by a team during one game was bucketed into three categories: "High" (over 61 made tackles),
+"Average" (between 45 and 61 made tackles, inclusive), and "Low" (under 45 made tackles). This information
+was then used as the attribute for a Bayesian classifier to predict likelihood of victory based on the
+number of successful tackles.
+
+The resulting classifier had an accuracy of $60\%$ and an F1-score of $0.6178628389154706$. Broadly, it
+categorized a "High" number of tackles as a lost game, and an "Average" and "Low" number of tackles as a
+won game. Thus, it does not appear as if the number of successful tackles has a significant impact on the likelihood
+of victory. Additionally, when the model was slightly modified to predict victory based on the number of
+missed tackles, the results were comparable.
+
+Again, however, the accuracy scores were likely affected by the low proportion of missed to made tackles
+in the dataset. When the dataset was adjusted with SMOTE, the accuracy was then about $57.8\%$, and
+the F1-score was $0.5984794061302681$. Accuracy was therefore lower, but the general implications with
+regard to the lack of applicability and predictive power of the number of tackles remained the same.
 
 \subsection{Grouping Tackles}
 
