@@ -328,17 +328,19 @@ factors such as position on the field or movement at the time of a tackle.
 
 % TODO: Revise these two paragraphs to fit work already done:
 
-Our primary goal for this project is to find correlations between previously
+Our primary goal for this project was to find correlations between previously
 known information such as weight, height, and time during a game and the tackles
 performed (location, likelihood of success and number of tackles). To this end,
-we are proposing to try and find correlations between factors such as height and
-weight of player and frequency and likelihood of success of tackles and
+we aimed to find correlations between factors such as height and
+weight of player, and frequency and likelihood of success of tackles, as well as
 frequency analysis for examining which teams/players tend to engage in tackles.
+Analysis methods included both the naives Bayes and decision tree classifiers.
 
-In addition to this analysis, we also seek to analyze whether the risk of injury
-from tackles can be reduced and how much of an impact tackles have on the
-outcome of a game or visa versa. We will also seek to analyze the difference in
-frequencies of tackles between different teams and positions.
+Expanding beyond this, we also explored how strong of a correlation exists
+between defensive players making or missing tackles and their team winning games.
+We used data on the number of tackles performed during a game to see the effect on
+the game's outcome.  This was intended to provide insight on how tackles can affect the
+course of the game.
 
 \subsection{Offensive strategies}
 
@@ -545,13 +547,13 @@ doing and the ball carrier must outrun multiple defenders.
 
 % TODO: Add results (Isaac & Tim)
 
-% TODO: The following paragraph revised and under methodology:
-
-Building off of the work done on predicting the likelihood of success of a
-tackle, we plan to use different models with the same attributes and comparing
-with the na\"ive Bayes results to see which is more accurate.  We plan on using
-a decision tree or random forest approach which should also provide insight as
-to which attributes are most important in predicting success.
+When comparing the predictive models of tackle likelihood based on player attributes,
+the differences between the naives Bayes and decision tree classifiers was very small.
+They had identical accuracy and F1-scores under the original dataset, and very similar ones
+under the adjusted SMOTE dataset. Thus, in terms of predictive power, neither is necessarily
+better than the other. However, the decision tree offers a more easily interpretable
+visual representation, while the Bayes model is more flexible in terms of programming and
+individual predictions, so each has their own strengths and weaknesses in practical use.
 
 \subsection{Offensive strategies}
 
@@ -707,19 +709,6 @@ that the offensive formation had a significant impact on tackle performance. The
 dataset lacked a sufficient number of missed tackle observations and was heavily
 imbalanced toward certain offensive formations.
 
-\subsection{Tackles as a Predictor of Victory}
-
-% TODO: Add results (Isaac)
-
-% TODO: The following paragraph revised and under methodology:
-
-Expanding beyond looking at the likelihood of tackles succeeding, we will
-explore how strong of a correlation exists between defensive players making or
-or missing tackles and their team winning games.  We plan on using data on the
-number of tackles performed during a game and see how this is correlated with
-the game's outcome.  This will provide insight on how tackles can affect the
-course of the game.
-
 \section{Discussion}
 
 \subsection{Imbalance in missed tackle observations}
@@ -797,6 +786,9 @@ our investigation and our consideration of all factors. Real-world data is
 rarely straightforward, and contains many confounding variables that can all
 have impacts on the observed results. Accordingly, we didn't make make finding
 an “answer” our goal, but instead focused on exploring the data as best we can.
+Even if we were unable to find conclusive or applicable implications for play strategies,
+we value what information our work does provide, and look forward to the future work
+that may result.
 
 \section{Conclusion}
 
@@ -839,7 +831,13 @@ association between offensive formation and missed tackles.
 
 \subsection{Tackles as a predictor of victory}
 
-% TODO: Add conclusion (Isaac)
+As previously noted, the provided dataset is unfortunately limited in terms of the representation of
+missed tackles. Many more made tackles are available in the data, and thus predictive classifiers are
+skewed towards them.
+
+Even so, the number of made (or missed) tackles does not have strong predictive ability with regards to
+a team's victory, whether or not the dataset was adjusted with SMOTE. We were not able to find an
+association between number of tackles and winning games.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sources}
@@ -860,7 +858,7 @@ received unauthorized assistance.
     \item Classifying tackles: Na\"ive Bayesian
     \item Classifying tackles: Decision tree
     \item Tackles as a predictor of victory: Na\"ive Bayesian
-    \item Classifying tackles: SMOTE re-analysis
+    \item Classifying tackles \& Tackles as a predictor: SMOTE re-analysis
   \end{itemize}
   \item Sean Shi
   \begin{itemize}
@@ -876,6 +874,5 @@ received unauthorized assistance.
     \item Classifying tackles: Random forest
   \end{itemize}
 \end{itemize}
-% TODO: verify individual contributions
 \end{document}
 \endinput
