@@ -662,7 +662,15 @@ course of the game.
 
 \subsection{Imbalances in tackle observations}
 
-% TODO
+The missed tackle class in the tackles data, provided by the third-party vendor
+Pro Football Focus as noted in the dataset description, contains a significantly
+smaller number of missed tackle observations (2,090) than non-missed (15,336).
+This imbalance made producing statistical significance when attempting to check
+for a correlation between missed tackles and another variable, or training
+classifiers to predict missed tackles, difficult. We were able to use Synthetic
+Minority Over-sampling Technique (SMOTE) to partially mitigate this for
+classifiers, but ideally we would have a much larger dataset to work with in
+order to produce statistical significance in all our forms of analysis.
 
 \subsection{Other sources of data}
 
