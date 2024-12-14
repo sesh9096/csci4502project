@@ -153,14 +153,14 @@
   \country{USA}
 }
 
-\author{Grace Williams (5502)}
-\email{grwi3115@colorado.edu}
-\affiliation{%
-  \institution{University of Colorado Boulder}
-  \city{Boulder}
-  \state{Colorado}
-  \country{USA}
-}
+% \author{Grace Williams (5502)}
+% \email{grwi3115@colorado.edu}
+% \affiliation{%
+%   \institution{University of Colorado Boulder}
+%   \city{Boulder}
+%   \state{Colorado}
+%   \country{USA}
+% }
 
 % \authornote{Both authors contributed equally to this research.}
 % \orcid{1234-5678-9012}
@@ -179,7 +179,7 @@
 %% other information printed in the page headers. This command allows
 %% the author to define a more concise list
 %% of authors' names for this purpose.
-\renewcommand{\shortauthors}{Isaac et al.}
+\renewcommand{\shortauthors}{Kou et al.}
 
 %%
 %% The abstract is a short summary of the work to be presented in the
@@ -324,7 +324,7 @@ etc. involved in a tackle.  We will also be examining data from 9 weeks of
 tracking data (``\verb|tracking_week_[1-9].csv|'') to determine the effects of
 factors such as position on the field or movement at the time of a tackle.
 
-\subsection{Exploritory analysis}
+\subsection{Exploratory analysis}
 
 % TODO: Revise these two paragraphs to fit work already done:
 
@@ -350,7 +350,7 @@ potential offensive strategies to investigate.
 
 Many play designs involve the quarterback handing the ball off to a player
 designated as the running back (RB), who attempts to run forward for as many
-yards as possible before being tackled or forced out of bounds by the defense. 
+yards as possible before being tackled or forced out of bounds by the defense.
 
 For this offensive strategy, we will check if optimizing the weight of a running
 back is associated with a more favorable outcome for an increase in missed
@@ -410,35 +410,59 @@ due to penalties as -5 or -10 yards are common penalties.
   less than 10 than greater, and smaller peaks at 5, 10, -5, -10}
 \end{figure}
 
-\subsection{Predictor of Success}
+\subsection{Classifier Predictions of Tackle Success}
 
-To determine if certain factors about a player and the way a tackle was
-performed made it more likely to succeed, we attempted to use a na\"ive Bayesian
-classifier to predict the likelihood of a tackle succeeding based on the
-following attributes:
+To determine if certain factors about the ball-carrying player (the player being tackled)
+made a tackle more likely to succeed, we attempted to use both a na\"ive Bayesian
+classifier and a decision tree classifier to predict the likelihood of a tackle succeeding
+based on the following attributes:
 
 \begin{itemize}
-\item Weight: The player's height sorted into 3 categories: ($< 5'10'',
-5'10''-6'2'', > 6'3''$)
-\item Height: The player's weight sorted into 3 categories (`Under 200', `200 -
+\item Weight: The player's height, in feet and inches, sorted into 3 categories: ($< 5'10'',
+5'10''-6'2'', > 6'3''$, which were codenamed as "Short", "Average", and "Tall")
+\item Height: The player's weight, in pounds, sorted into 3 categories (`Under 200', `200 -
 250', `Over 250')
 \item Position: The player's position on the team (FB, QB, RB, TE, WR)
-\item Assist: Whether or not the there were multiple people involved in the
-tackle
-\item forcedFumble: Whether or not the ball was dislodged by the defender
 \end{itemize}
 
-These attributes were chosen because they were either intrinsic to the player
-and likely meaningful to the game, or involved with how a tackle performed, and
-thus could inform decisions about how to be more successful with future tackles.
+Two different classifiers were chosen in order to compare the results. Meanwhile,
+the attributes listed above were chosen because they were intrinsic to the player
+and likely meaningful to the effect of the tackle, or involved with their role on the field
+(reflecting possible influences such as positioning, play style, etc. and thus
+meaningful to the game), and thus could inform decisions about how to be more successful
+with future tackles.
 
-We used $70\%$ of the data for training the bayesian model and the rest for
-testing its effectiveness in predicting success. The resulting model was able to
-predict whether or not a tackle succeeded with accuracy of 88.6\% and F1 Score
-of 0.8888216807787944. This shows that the factors chosen were effective in
+We used $67\%$ of the data for training the Bayesian and decision tree models, and the rest for
+testing each model's effectiveness in predicting success. Both resulting models were able to
+predict whether or not a tackle succeeded with accuracy of $88.6\%$ and F1-score
+of $0.9397763996855621$. This shows that the factors chosen were, at least at face value, effective in
 predicting the likelihood of a tackle succeeding.
 
-\subsection{Grouping tackles}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]
+  {decision_tree.png}
+  \caption{The resulting decision tree for tackle likelihood prediction.}
+\end{figure}
+
+However, it is worth noting that the dataset of tackles provided by the NFL had relatively few records
+of "missed" tackles in comparison to "made" or "successful" tackles. This likely affected the accuracy
+of the classifiers and made them seem more predictive than they are.
+
+When the dataset was adjusted using SMOTE (Synthetic Minority Oversampling Technique), the
+Bayesian model had an accuracy of $50.9\%$ and an F1-score of $0.5096858777515016$, while the
+decision tree had an accuracy of $50.4\%$ and an F1-score of $0.6700675539890862$. This supports
+the idea that the accuracy of the classifiers is inflated by the proportion of made to missed tackles,
+and once balanced, their predictive abilities are no longer as strong.
+
+\subsection{Relevance of Tackles to Game Wins}
+
+% TODO - Isaac
+
+Additionally, to determine if the quantity of tackles themselves contributed to the likelihood
+of winning a game,
+
+\subsection{Grouping Tackles}
 
 Examining 9 weeks of tracking data, we attempted to determine if there were any
 patterns in where tackles occurred. This analysis used a subset of the tracking
@@ -462,7 +486,7 @@ rather than tackled, which also ends the play.
   \Description{A plot of the x and y coordinates of tackles}
 \end{figure}
 
-\subsection{Comparing prediction models}
+\subsection{Comparing Prediction Models}
 
 % TODO: Add results (Isaac & Tim)
 
@@ -474,7 +498,7 @@ with the na\"ive Bayes results to see which is more accurate.  We plan on using
 a decision tree or random forest approach which should also provide insight as
 to which attributes are most important in predicting success.
 
-\subsection{Expanding cluster analysis}
+\subsection{Expanding Cluster Analysis}
 
 % TODO: Add results (Sean)
 
@@ -491,9 +515,9 @@ also plan on examining if there are certain strategies which allow the ball
 carrier to avoid tackles from defenders, using scatter plot visualizations and
 cluster analysis as needed.
 
-\subsection{Offensive strategies}
+\subsection{Offensive Strategies}
 
-\subsubsection{Optimizing the weight of running backs}
+\subsubsection{Optimizing the Weight of Running Backs}
 
 Running backs aren't significantly heavier than other offensive players. The
 heaviest players play at the key blocker positions of center (C), offensive
@@ -645,7 +669,7 @@ that the offensive formation had a significant impact on tackle performance. The
 dataset lacked a sufficient number of missed tackle observations and was heavily
 imbalanced toward certain offensive formations.
 
-\subsection{Tackles as a predictor of victory}
+\subsection{Tackles as a Predictor of Victory}
 
 % TODO: Add results (Isaac)
 
@@ -795,6 +819,12 @@ received unauthorized assistance.
 \begin{itemize}
   \item Isaac Kou
   % TODO: add individual contributions
+  \begin{itemize}
+    \item Tackle success (classifiers): Naive Bayesian
+    \item Tackle success (classifiers): Decision tree
+    \item Tackles as a predictor of victory: Naive Bayesian
+    \item All classifiers: SMOTE re-analysis
+  \end{itemize}
   \item Sean Shi
   % TODO: add individual contributions
   \item Timur Tripp
@@ -803,7 +833,7 @@ received unauthorized assistance.
     \item Offensive strategy: Optimizing the weight of running backs
     \item Offensive strategy: Choosing specific offensive formation types
     \item Classifying tackles: Random forest
-  \end{itemize} 
+  \end{itemize}
 \end{itemize}
 
 \end{document}
