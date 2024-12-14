@@ -367,8 +367,11 @@ during passing plays.
 
 To increase yards after catch, offenses may need to make longer passes down the
 field to areas where there are fewer defenders nearby to make the tackle. For
-this offensive stragey, we analyze whether longer passes resulting in more yards
+this offensive strategy, we analyze whether longer passes resulting in more yards
 after catch is supported by the dataset.
+
+Note that this analysis will only include plays where a pass was made which
+requires filtering out observations without a value for \texttt{passLength}.
 
 \subsubsection{Choosing specific offensive formation types}
 
@@ -380,7 +383,7 @@ offense and defense at the start of a play and marks the distance remaining for
 a first down.
 
 A formation also directs the movement of players after a play begins, based on
-their positions in the game. For example, a wide reciever may be directed to run
+their positions in the game. For example, a wide receiver may be directed to run
 down the field to provide a target for a pass. Defenses are allowed to respond
 to offensive formations based on how the offensive players line up, but may not
 always know the offense's full intentions.
@@ -390,6 +393,22 @@ formation types are associated with more favorable outcomes for offenses seeking
 to increase the amount of plays with missed tackles. We will also determine how
 offensive formation preferences change based on variables such as down and
 distance.
+
+\subsection{Grouping tackles}
+When performing a tackle, the physical attributes of the players involved such
+as their relative speed, direction, location, etc. may have an effect on how
+tackles are performed and whether they are sucessful.
+By filtering tracking data from ``\verb|tracking_week_[1-9].csv|'' on tackle
+events, we are able to determine each player's movement at the moment of a tackle.
+Since this data is largely numerical and are likely not independent, we have
+used cluster analysis using a k-means algorithm to determine any patterns in the
+dataset.
+
+Using the Elbow Method, we choose 5 clusters for this dataset and applied the
+k-means methods to a number of combinations of attributes. By joining this
+dataset with the plays dataset, we were also able to determine which plays are
+more likely to have tackles and the relative motion of players with respect to
+each other at the time of tackle.
 
 \section{Evaluation}
 
@@ -464,15 +483,10 @@ of winning a game,
 
 \subsection{Grouping Tackles}
 
-Examining 9 weeks of tracking data, we attempted to determine if there were any
-patterns in where tackles occurred. This analysis used a subset of the tracking
-data, specifically we filtered the dataset to only include the attributes for
-the football and when a tackle occurred. We then used the $x$ and $y$ attributes
-which correspond to the position of the football in yards at the time to the
-tackle to determine if there any patterns in position.  We attempted to use
-k-means clustering with varying numbers of clusters to mine for clusters.
-
-Our methods were unable to find significant clusters of positions where tackles
+Using the $x$ and $y$ attributes of the tracking dataset which correspond to the
+position of the football in yards at the time of the tackle, we attempted to
+determine if there any patterns in position at the time of tackle.
+We were unable to find significant clusters of positions where tackles
 occurred. As shown in the figure below, the locations of tackles do not appear
 to be in any statistically significant clusters. Notably, tackles tended to
 occur much more frequently close to the center of the field in both the $x$ and
@@ -486,7 +500,31 @@ rather than tackled, which also ends the play.
   \Description{A plot of the x and y coordinates of tackles}
 \end{figure}
 
-\subsection{Comparing Prediction Models}
+By using speed and acceleration of the football which acts as a proxy for the
+speed and acceleration of a player as they are being tackled, we are able to see
+that most tackles are clustered at fairly low speeds and accelerations. A second
+much smaller cluster of tackles also happen at low speeds but high accelerations.
+One explanation for this is that most players are seeking to avoid injury, so
+will not try to go faster if they are already likely to be tackled.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{speed-accel}
+  \caption{speed and acceleration at time of tackle}
+\end{figure}
+
+Additionally, by comparing the speed and direction of the ``tackler'' and the
+ball carrier, we can see that in most cases, the 2 are traveling in the same
+direction. However, the speed of the ball carrier tends to be higher than that
+of the defender likely because they must respond to what the ball carrier is
+doing and the ball carrier must outrun multiple defenders.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{speed}
+  \caption{difference in speed and direction between defender and ball carrier}
+\end{figure}
+
+\subsection{Comparing prediction models}
 
 % TODO: Add results (Isaac & Tim)
 
@@ -498,24 +536,7 @@ with the na\"ive Bayes results to see which is more accurate.  We plan on using
 a decision tree or random forest approach which should also provide insight as
 to which attributes are most important in predicting success.
 
-\subsection{Expanding Cluster Analysis}
-
-% TODO: Add results (Sean)
-
-% TODO: The following paragraph revised and under methodology:
-
-In regards to the locations of tackles, we plan to classify tackles as successes
-and failures to see if there are clusters where success or failure is more
-likely. Additionally, we plan on looking into using other variables from the
-tracking data such as speed and direction to determine if there are any commonly
-occurring values for these variables. We will look for outliers which may
-indicate when a certain combination of attributes will make a tackle much more
-likely or less likely to succeed. Considering the role of players in a game, we
-also plan on examining if there are certain strategies which allow the ball
-carrier to avoid tackles from defenders, using scatter plot visualizations and
-cluster analysis as needed.
-
-\subsection{Offensive Strategies}
+\subsection{Offensive strategies}
 
 \subsubsection{Optimizing the Weight of Running Backs}
 
@@ -523,7 +544,7 @@ Running backs aren't significantly heavier than other offensive players. The
 heaviest players play at the key blocker positions of center (C), offensive
 guard (G), and offensive tackle (T), where the goal is to block defensive
 players from entering the offensive backfield and running long distances is
-rare. Players playing quarterback (QB), wide reciever (WR), and tight end (TE)
+rare. Players playing quarterback (QB), wide receiver (WR), and tight end (TE)
 don't need to be as heavy to do their jobs effectively. Players playing at wide
 receiver (WR) come in at the lightest weight, which makes sense for a player
 needing to be agile enough to make mid-air catches.
@@ -764,7 +785,7 @@ an “answer” our goal, but instead focused on exploring the data as best we c
 
 \subsection{Predicting tackle success}
 
-\subsubsection{Exploritory analysis}
+\subsubsection{Exploratory analysis}
 
 % TODO: Add conclusion (Isaac & Sean)
 
@@ -793,7 +814,7 @@ between running back weight and missed tackles.
 
 \subsubsection{Choosing specific offensive formation types}
 
-The dataset contains six offensive formation types, with Shotgun and and
+The dataset contains six offensive formation types, with Shotgun and
 Singback being the most popular overall. Offensive formation preferences change
 based on down and distance, suggesting that some formations work better
 depending on what the offense's goals are. We were not able to find an
@@ -818,7 +839,6 @@ received unauthorized assistance.
 
 \begin{itemize}
   \item Isaac Kou
-  % TODO: add individual contributions
   \begin{itemize}
     \item Tackle success (classifiers): Naive Bayesian
     \item Tackle success (classifiers): Decision tree
@@ -826,7 +846,11 @@ received unauthorized assistance.
     \item All classifiers: SMOTE re-analysis
   \end{itemize}
   \item Sean Shi
-  % TODO: add individual contributions
+  \begin{itemize}
+    \item k-means analysis with speed and acceleration
+    \item regression of pass length and result
+    \item Exploratory analysis
+  \end{itemize}
   \item Timur Tripp
   \begin{itemize}
     \item Grouping tackles: k-means analysis of football position
@@ -835,6 +859,6 @@ received unauthorized assistance.
     \item Classifying tackles: Random forest
   \end{itemize}
 \end{itemize}
-
+% TODO: verify individual contributions
 \end{document}
 \endinput
