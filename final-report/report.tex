@@ -334,7 +334,7 @@ performed (location, likelihood of success and number of tackles). To this end,
 we aimed to find correlations between factors such as height and
 weight of player, and frequency and likelihood of success of tackles, as well as
 frequency analysis for examining which teams/players tend to engage in tackles.
-Analysis methods included both the naives Bayes and decision tree classifiers.
+Analysis methods included both the naive Bayes and decision tree classifiers.
 
 Expanding beyond this, we also explored how strong of a correlation exists
 between defensive players making or missing tackles and their team winning games.
@@ -418,10 +418,10 @@ each other at the time of tackle.
 
 \section{Evaluation}
 
-\subsection{Distance Before Tackle}
+\subsection{Exploratory analysis}
 
 By analyzing the frequency of \verb|yardsToGo|, we were able to determine that
-the vast majority of tackles occurred at around 10 yards. This is likely because
+the vast majority of plays started at 10 yards to go. This is likely because
 10 yards is the starting point for each round. We also see more observations
 less than 10 yards to go than greater meaning moving forward is much more likely
 than backwards. The slight increase observed at 15 or 20 yards to go is likely
@@ -434,6 +434,8 @@ due to penalties as -5 or -10 yards are common penalties.
   \Description{A histogram of yards to go, has a peak at 10, more observations
   less than 10 than greater, and smaller peaks at 5, 10, -5, -10}
 \end{figure}
+
+This also shows that most tackles occur fairly close to the starting line of the play.
 
 \subsection{Classifier Predictions of Tackle Success}
 
@@ -645,10 +647,12 @@ the defenders.
 
 Examining the difference between play result and pass length (figure
 \ref{fig:pl}) as a proxy for the amount of distance an offensive player goes
-before being tackled, we can see that in the range of approximately [-8,8], the
+before being tackled, we can see that in the range of approximately [-5,8], the
 average distance before tackle decreases as the pass length increases probably
 because at these distances, other team members can help prevent the ball carrier
-from being tackled.
+from being tackled. The average distance covered changes by -0.76231569 yards
+for each extra yard the pass covers. Note that this linear regression has score
+of 0.027 which indicates the data is likely not linear.
 
 We can also see that the play result seems to be the primary variable used by
 the NFL to predict the expected score for a game(represented by the color of a
@@ -760,10 +764,11 @@ plays.
 \subsection{Utilization of tracking data}
 
 We had considered using temporal data particularly the tracking data to see if
-we can find any patterns over time. However, this may be difficult due to the
+we can find any patterns over time. However, this was difficult due to the
 lack of historical data, short period of the tracking data, and its
 incompleteness i.e. only including a few frames around each notable event in the
-game. This was deemed to be outside the scope of the project.
+game. This was deemed to be outside the scope of the project though possible of
+interest for future projects.
 
 \subsection{Reflection}
 
@@ -799,15 +804,23 @@ that may result.
 
 \subsection{Predicting tackle success}
 
-We used three main methods of prediction.
+We used three main methods of prediction of tackles' success:
+clustering tackles by position, speed, etc and finding clusters of success or failure,
+using classifiers and to predict whether a tackle will occur and if it succeeds,
+and analyzing potential offensive and defensive strategies to see if they have an effect.
 
-\subsubsection{Exploratory analysis}
+% \subsubsection{Exploratory analysis}
+Most tackles occur fairly close to the starting line of a play (i.e. with 10 yards to go)
+generally ahead of it. Additionally, fouls by either team can move the starting
+point by 5 or 10 which can be identified as oddities in the data.
 
-% TODO: Add conclusion (Isaac & Sean)
-
-\subsubsection{Grouping tackles}
-
-% TODO: Add conclusion (Tim & Sean)
+% \subsubsection{Grouping tackles}
+Attempting to group tackles using k-means clustering, we were unable to find
+any significant clusters of failure or success. We were able to determine that
+tackles tend to be more densely clustered close to the center of the field and
+players are likely to be going in the same directions when tackling and the ball
+carrier tends to be going at higher speed. Players also tend to have lower speed
+and acceleration at the moment of tackle regardless of success.
 
 \subsubsection{Classifying tackles}
 
@@ -825,7 +838,8 @@ of being tackled.
 
 \subsection{Offensive strategies}
 
-We tested three offensive strategies for their usefulness.
+We tested three offensive strategies for their usefulness:
+the weight of running backs, increasing passing yards, and offensive formations.
 
 \subsubsection{Optimizing the weight of running backs}
 
@@ -836,7 +850,11 @@ between running back weight and missed tackles.
 
 \subsubsection{Increasing passing yards}
 
-% TODO: Add conclusion (Sean)
+With shorter passes, the distance players can go before being tackled is
+decreasing possibly because they are more likely to get surrounded. This effect
+is on average overshadowed by the extra yards gained by longer passes.
+There is also very little data for long passes but there is some data to suggest
+that long passes can lead to longer runs without being tackled.
 
 \subsubsection{Choosing specific offensive formation types}
 
