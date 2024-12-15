@@ -295,7 +295,7 @@ Outside of academia, many football fans conduct hobbyist analyses of their own,
 often concerning points, player performance, game trends, and so on. An example
 of this is the article
 \href{https://medium.com/@ezra.ford/tackling-metrics-with-big-data-0812b5ab65f0}{“Tackling
-Metrics with Big Data”} by Ezra Ford on Medium. In addition to being a subject
+Metrics with Big Data”}\cite{mediummetrics} by Ezra Ford on Medium. In addition to being a subject
 of interest in and of themselves, these have applications in related
 sub-hobbies, such as sports betting and fantasy football, and can help fans
 maximize their success in those activities.
@@ -310,7 +310,7 @@ trends instead.
 In this project, we seek to find the effects of different attributes on the
 success rate and time of tackles and subsequently, how tackles effects the
 outcome of a game.  To this end, we will be employing a variety of statistical
-techniques covered in both CSCI4502/5502 and from other classes.
+techniques covered in both CSCI 4502/5502 and from other classes.
 
 \subsection{Datasets}
 
@@ -437,14 +437,14 @@ due to penalties as -5 or -10 yards are common penalties.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{../src/yards.png}
-  \caption{yards to go}
+  \caption{Yards to go}
   \Description{A histogram of yards to go, has a peak at 10, more observations
   less than 10 than greater, and smaller peaks at 5, 10, -5, -10}
 \end{figure}
 
 This also shows that most tackles occur fairly close to the starting line of the play.
 
-\subsection{Classifier Predictions of Tackle Success}
+\subsection{Classifier predictions of tackle success}
 
 To determine if certain factors about the ball-carrying player (the player being tackled)
 made a tackle more likely to succeed, we attempted to use both a na\"ive Bayesian
@@ -476,7 +476,7 @@ predicting the likelihood of a tackle succeeding.
   \centering
   \includegraphics[width=\linewidth]
   {decision_tree.png}
-  \caption{The resulting decision tree for tackle likelihood prediction.}
+  \caption{The resulting decision tree for tackle likelihood prediction}
 \end{figure}
 
 However, it is worth noting that the dataset of tackles provided by the NFL had relatively few records
@@ -499,7 +499,7 @@ After performing SMOTE to account for the imbalance in the dataset, this
 classifier achieved an accuracy of 0.84 and f1-score of 0.83 when predicting
 whether the play would result in at least one missed tackle.
 
-\subsection{Grouping Tackles}
+\subsection{Grouping tackles}
 
 Using the $x$ and $y$ attributes of the tracking dataset which correspond to the
 position of the football in yards at the time of the tackle, we attempted to
@@ -528,7 +528,7 @@ will not try to go faster if they are already likely to be tackled.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{speed-accel}
-  \caption{speed and acceleration at time of tackle}
+  \caption{Speed and acceleration at time of tackle}
 \end{figure}
 
 Additionally, by comparing the speed and direction of the ``tackler'' and the
@@ -539,7 +539,7 @@ doing and the ball carrier must outrun multiple defenders.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{speed}
-  \caption{difference in speed and direction between defender and ball carrier}
+  \caption{Difference in speed and direction between defender and ball carrier}
 \end{figure}
 
 \subsection{Comparing prediction models}
@@ -556,7 +556,7 @@ practical use.
 
 \subsection{Offensive strategies}
 
-\subsubsection{Optimizing the Weight of Running Backs}
+\subsubsection{Optimizing the weight of running backs}
 
 Running backs aren't significantly heavier than other offensive players. The
 heaviest players play at the key blocker positions of center (C), offensive
@@ -621,7 +621,7 @@ This indicates that most passes tend to be low with most falling between -5 and
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{passlength}
-  \caption{length of passes}
+  \caption{Length of passes}
 \end{figure}
 
 Comparing the pass result with passing yards, we can see that the most play results
@@ -630,7 +630,7 @@ ball forward.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{length_v_result}
-  \caption{pass length vs result}
+  \caption{Pass length vs. result}
 \end{figure}
 It is also noticeable that several outliers fall below this line which can be
 explained by penalty points of 5 or 10 or if the ball was intercepted by the
