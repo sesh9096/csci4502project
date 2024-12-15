@@ -346,6 +346,22 @@ Finally, we used compiled this information to determine potential strategies and
 on real-world applications, including the selection of offensive strategies and the use of
 certain formations.
 
+\subsection{Grouping tackles}
+
+When performing a tackle, the physical attributes of the players involved such
+as their relative speed, direction, location, etc. may have an effect on how
+tackles are performed and whether they are sucessful. By filtering tracking
+data from ``\verb|tracking_week_[1-9].csv|'' on tackle events, we are able to
+determine each player's movement at the moment of a tackle. Since this data is
+largely numerical and are likely not independent, we have used cluster analysis
+using a k-means algorithm to determine any patterns in the dataset.
+
+Using the Elbow Method, we choose 5 clusters for this dataset and applied the
+k-means methods to a number of combinations of attributes. By joining this
+dataset with the plays dataset, we were also able to determine which plays are
+more likely to have tackles and the relative motion of players with respect to
+each other at the time of tackle.
+
 \subsection{Offensive strategies}
 
 NFL offenses are always looking for ways to stay ahead of defenses. Putting
@@ -400,21 +416,13 @@ to increase the amount of plays with missed tackles. We will also determine how
 offensive formation preferences change based on variables such as down and
 distance.
 
-\subsection{Grouping tackles}
-When performing a tackle, the physical attributes of the players involved such
-as their relative speed, direction, location, etc. may have an effect on how
-tackles are performed and whether they are sucessful.
-By filtering tracking data from ``\verb|tracking_week_[1-9].csv|'' on tackle
-events, we are able to determine each player's movement at the moment of a tackle.
-Since this data is largely numerical and are likely not independent, we have
-used cluster analysis using a k-means algorithm to determine any patterns in the
-dataset.
+\subsection{Tackles as a predictor of victory}
 
-Using the Elbow Method, we choose 5 clusters for this dataset and applied the
-k-means methods to a number of combinations of attributes. By joining this
-dataset with the plays dataset, we were also able to determine which plays are
-more likely to have tackles and the relative motion of players with respect to
-each other at the time of tackle.
+“The best offense is a good defense” and “defense wins championships” are
+popular sayings, but is it really true? We will explore how strong of an
+association exists between defensive players making or missing tackles and
+their team winning games, and whether tackles can be used to predict game
+outcomes.
 
 \section{Evaluation}
 
@@ -482,30 +490,6 @@ decision tree had an accuracy of $50.4\%$ and an F1-score of $0.6700675539890862
 the idea that the accuracy of the classifiers is inflated by the proportion of made to missed tackles,
 and once balanced, their predictive abilities are no longer as strong.
 
-\subsection{Relevance of Tackles to Game Wins}
-
-Additionally, to determine if the quantity of tackles themselves contributed to the likelihood
-of winning a game, another naive Bayesian classifier was constructed based on the number of successful
-tackles performed by each team during a game.
-
-From the provided dataset of tackles, the number of successful tackles was aggregated by game and team.
-This was then combined with whether or not the team won the game in question. From there, the number of
-tackles made by a team during one game was bucketed into three categories: "High" (over 61 made tackles),
-"Average" (between 45 and 61 made tackles, inclusive), and "Low" (under 45 made tackles). This information
-was then used as the attribute for a Bayesian classifier to predict likelihood of victory based on the
-number of successful tackles.
-
-The resulting classifier had an accuracy of $60\%$ and an F1-score of $0.6178628389154706$. Broadly, it
-categorized a "High" number of tackles as a lost game, and an "Average" and "Low" number of tackles as a
-won game. Thus, it does not appear as if the number of successful tackles has a significant impact on the likelihood
-of victory. Additionally, when the model was slightly modified to predict victory based on the number of
-missed tackles, the results were comparable.
-
-Again, however, the accuracy scores were likely affected by the low proportion of missed to made tackles
-in the dataset. When the dataset was adjusted with SMOTE, the accuracy was then about $57.8\%$, and
-the F1-score was $0.5984794061302681$. Accuracy was therefore lower, but the general implications with
-regard to the lack of applicability and predictive power of the number of tackles remained the same.
-
 \subsection{Grouping Tackles}
 
 Using the $x$ and $y$ attributes of the tracking dataset which correspond to the
@@ -553,13 +537,15 @@ doing and the ball carrier must outrun multiple defenders.
 
 % TODO: Add results (Isaac & Tim)
 
-When comparing the predictive models of tackle likelihood based on player attributes,
-the differences between the naives Bayes and decision tree classifiers was very small.
-They had identical accuracy and F1-scores under the original dataset, and very similar ones
-under the adjusted SMOTE dataset. Thus, in terms of predictive power, neither is necessarily
-better than the other. However, the decision tree offers a more easily interpretable
-visual representation, while the Bayes model is more flexible in terms of programming and
-individual predictions, so each has their own strengths and weaknesses in practical use.
+When comparing the predictive models of tackle likelihood based on player
+attributes, the differences between the Na\"ive Bayes and decision tree
+classifiers was very small. They had identical accuracy and F1-scores under the
+original dataset, and very similar ones under the adjusted SMOTE dataset.
+Thus, in terms of predictive power, neither is necessarily better than the
+other. However, the decision tree offers a more easily interpretable visual
+representation, while the Bayes model is more flexible in terms of programming
+and individual predictions, so each has their own strengths and weaknesses in
+practical use.
 
 \subsection{Offensive strategies}
 
@@ -716,6 +702,37 @@ affect on the number of plays with at least one missed tackle. Ultimately, with
 that the offensive formation had a significant impact on tackle performance. The
 dataset lacked a sufficient number of missed tackle observations and was heavily
 imbalanced toward certain offensive formations.
+
+\subsection{Tackles as a predictor of victory}
+
+To determine if the quantity of tackles themselves contributed to the
+likelihood of winning a game, another Na\"ive Bayesian classifier was
+constructed based on the number of successful tackles performed by each team
+during a game.
+
+From the provided dataset of tackles, the number of successful tackles was
+aggregated by game and team. This was then combined with whether or not the
+team won the game in question. From there, the number of tackles made by a team
+during one game was bucketed into three categories: "High" (over 61 made
+tackles), "Average" (between 45 and 61 made tackles, inclusive), and "Low"
+(under 45 made tackles). This information was then used as the attribute for a
+Bayesian classifier to predict likelihood of victory based on the number of
+successful tackles.
+
+The resulting classifier had an accuracy of $60\%$ and an F1-score of
+$0.6178628389154706$. Broadly, it categorized a "High" number of tackles as a
+lost game, and an "Average" and "Low" number of tackles as a won game. Thus, it
+does not appear as if the number of successful tackles has a significant impact
+on the likelihood of victory. Additionally, when the model was slightly
+modified to predict victory based on the number of missed tackles, the results
+were comparable.
+
+Again, however, the accuracy scores were likely affected by the low proportion
+of missed to made tackles in the dataset. When the dataset was adjusted with
+SMOTE, the accuracy was then about $57.8\%$, and the F1-score was
+$0.5984794061302681$. Accuracy was therefore lower, but the general
+implications with regard to the lack of applicability and predictive power of
+the number of tackles remained the same.
 
 \section{Discussion}
 
