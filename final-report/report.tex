@@ -1,4 +1,4 @@
-%%
+a%
 %% This is file `sample-sigconf.tex',
 %% generated with the docstrip utility.
 %%
@@ -326,25 +326,24 @@ factors such as position on the field or movement at the time of a tackle.
 
 \subsection{Exploratory analysis}
 
-% TODO: Revise these two paragraphs to fit work already done:
-
 Our primary goal for this project was to find correlations between previously
-known information such as weight, height, and time during a game and the tackles
-performed (location, likelihood of success and number of tackles). To this end,
-we aimed to find correlations between factors such as height and
-weight of player, and frequency and likelihood of success of tackles, as well as
-frequency analysis for examining which teams/players tend to engage in tackles.
-Analysis methods included both the na\"ive Bayes and decision tree classifiers.
+known information such as weight, height, and time during a game and the
+tackles performed (location, likelihood of success and number of tackles). To
+this end, we aimed to find correlations between factors such as height and
+weight of player, and frequency and likelihood of success of tackles, as well
+as frequency analysis for examining which teams/players tend to engage in
+tackles. Analysis methods included both the na\"ive Bayes and decision tree
+classifiers.
 
 Expanding beyond this, we also explored how strong of a correlation exists
-between defensive players making or missing tackles and their team winning games.
-We used data on the number of tackles performed during a game to see the effect on
-the game's outcome. This was intended to provide insight on how tackles can affect the
-course of the game.
+between defensive players making or missing tackles and their team winning
+games. We used data on the number of tackles performed during a game to see the
+effect on the game's outcome. This was intended to provide insight on how
+tackles can affect the course of the game.
 
-Finally, we used compiled this information to determine potential strategies and implications
-on real-world applications, including the selection of offensive strategies and the use of
-certain formations.
+Finally, we used compiled this information to determine potential strategies
+and implications on real-world applications, including the selection of
+offensive strategies and the use of certain formations.
 
 \subsection{Grouping tackles}
 
@@ -490,6 +489,16 @@ decision tree had an accuracy of $50.4\%$ and an F1-score of $0.6700675539890862
 the idea that the accuracy of the classifiers is inflated by the proportion of made to missed tackles,
 and once balanced, their predictive abilities are no longer as strong.
 
+\subsubsection{Random forest}
+
+To classify plays based on the presence of a missed tackle, a random forest
+classifier was constructed and trained using only variables known at the start
+of the play: quarter, down, side of field (own territory, midfield, or opponent
+territory), yards to go, offensive formation type, and defenders in the box.
+After performing SMOTE to account for the imbalance in the dataset, this
+classifier achieved an accuracy of 0.84 and f1-score of 0.83 when predicting
+whether the play would result in at least one missed tackle.
+
 \subsection{Grouping Tackles}
 
 Using the $x$ and $y$ attributes of the tracking dataset which correspond to the
@@ -534,8 +543,6 @@ doing and the ball carrier must outrun multiple defenders.
 \end{figure}
 
 \subsection{Comparing prediction models}
-
-% TODO: Add results (Isaac & Tim)
 
 When comparing the predictive models of tackle likelihood based on player
 attributes, the differences between the na\"ive Bayes and decision tree
@@ -826,32 +833,36 @@ clustering tackles by position, speed, etc and finding clusters of success or fa
 using classifiers and to predict whether a tackle will occur and if it succeeds,
 and analyzing potential offensive and defensive strategies to see if they have an effect.
 
-% \subsubsection{Exploratory analysis}
-Most tackles occur fairly close to the starting line of a play (i.e. with 10 yards to go)
-generally ahead of it. Additionally, fouls by either team can move the starting
-point by 5 or 10 which can be identified as oddities in the data.
+\subsubsection{Exploratory analysis}
 
-% \subsubsection{Grouping tackles}
+Most tackles occur fairly close to the starting line of a play (i.e. with 10
+yards to go) generally ahead of it. Additionally, fouls by either team can move
+the starting point by 5 or 10 which can be identified as oddities in the data.
+
+\subsubsection{Grouping tackles}
+
 Attempting to group tackles using k-means clustering, we were unable to find
 any significant clusters of failure or success. We were able to determine that
 tackles tend to be more densely clustered close to the center of the field and
-players are likely to be going in the same directions when tackling and the ball
-carrier tends to be going at higher speed. Players also tend to have lower speed
-and acceleration at the moment of tackle regardless of success.
+players are likely to be going in the same directions when tackling and the
+ball carrier tends to be going at higher speed. Players also tend to have lower
+speed and acceleration at the moment of tackle regardless of success.
 
 \subsubsection{Classifying tackles}
 
-% TODO: Add conclusion (Isaac & Tim)
-
-Initially, it appears as if player attributes have a fairly strong
-correlation with their likelihood of being tackled. However, this is likely due
-to the prevalance of made/successful tackles in the dataset, and therefore the
+Initially, it appears as if player attributes have a fairly strong correlation
+with their likelihood of being tackled. However, this is likely due to the
+prevalance of made/successful tackles in the dataset, and therefore the
 relative scarcity of missed tackles.
 
-When the dataset is adjusted for this using SMOTE, the accuracy and F1-scores of
-the models greatly decrease. As a result, we were not able to find a meaningful association
-between player characteristics of height, weight, and position, and their likelihood
-of being tackled.
+When the dataset is adjusted for this using SMOTE, the accuracy and F1-scores
+of the models greatly decrease. As a result, we were not able to find a
+meaningful association between player characteristics of height, weight, and
+position, and their likelihood of being tackled.
+
+A random forest classifier trained on variables known at the start of a play
+proved to be more promising, with an accuracy of 0.84 and f1-score of 0.83
+predicting whether the play would result in at least one missed tackle.
 
 \subsection{Offensive strategies}
 
