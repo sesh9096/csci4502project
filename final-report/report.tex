@@ -314,15 +314,48 @@ techniques covered in both CSCI 4502/5502 and from other classes.
 
 \subsection{Datasets}
 
-To analyze the effect of various traits of player, matches, and other factors on
-the timing and a success rate of tackle, we will primarily be using data from
-the Kaggle NFL Big Data Bowl \cite{nflkaggle}
+To analyze the effect of various traits of player, matches, and other factors
+on the timing and a success rate of tackle, we will primarily be using data
+from the Kaggle NFL Big Data Bowl \cite{nflkaggle}
 % \footnote{\url{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}}
 specifically the files ``\verb|tackles.csv|'', ``\verb|games.csv|'',
 ``\verb|plays.csv|'' which contain data on the play, players, success, teams,
 etc. involved in a tackle.  We will also be examining data from 9 weeks of
 tracking data (``\verb|tracking_week_[1-9].csv|'') to determine the effects of
 factors such as position on the field or movement at the time of a tackle.
+
+\subsubsection{Games dataset}
+
+The games dataset contains the game id, home team, visiting team, scores, week,
+date, and time of every game within the 9 week period.
+
+\subsubsection{Plays dataset}
+
+The plays dataset includes the game id, play id, quarter, down, distance,
+posessing team, side of field, offensive formation type, defenders in the box,
+text description, resulting yardage, ball carrier player id, and penalties (if
+applicable) of every play within the 9 week period. Kicking plays (kickoffs,
+punts, and field goals) are excluded. Plays are identified by both the game id
+and play id, as play ids are not unique across games.
+
+\subsubsection{Players dataset}
+
+The players dataset contains a player id, player name, position, height,
+weight, date of birth, and the college from which they originated.
+
+\subsubsection{Tackles dataset}
+
+The tackles dataset contains the game id, play id, player id, whether it was a
+tackle or assisted tackle attempt, and whether the tackle was missed (a metric
+provided by the third-party vendor Pro Football Focus).
+
+\subsubsection{Tracking dataset}
+
+Players on the field, as well as the football itself, are equipped with
+tracking devices which enable recording of their location, speed, acceleration,
+and altitude. These variables are included in the tracking dataset, along with
+the associated game id, play id, player id (if applicable), and event
+description (such as \verb|tackle|).
 
 \subsection{Exploratory analysis}
 
