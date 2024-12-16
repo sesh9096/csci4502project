@@ -319,8 +319,8 @@ on the timing and a success rate of tackle, we will primarily be using data
 from the Kaggle NFL Big Data Bowl \cite{nflkaggle}
 % \footnote{\url{https://www.kaggle.com/competitions/nfl-big-data-bowl-2024/data}}
 specifically the files ``\verb|tackles.csv|'', ``\verb|games.csv|'',
-``\verb|plays.csv|'' which contain data on the play, players, success, teams,
-etc. involved in a tackle.  We will also be examining data from 9 weeks of
+``\verb|plays.csv|'', and ``\verb|players.csv|'' which contain data on the play,
+players, success, teams, etc. involved in a tackle.  We will also be examining data from 9 weeks of
 tracking data (``\verb|tracking_week_[1-9].csv|'') to determine the effects of
 factors such as position on the field or movement at the time of a tackle.
 
@@ -344,12 +344,12 @@ and play ID, as play IDs are not unique across games.
 
 \subsubsection{Players dataset}
 
-The players dataset contains a player ID (a numerical identifier unique to each player),
+The ``\verb|players.csv|'' dataset contains a player ID (a numerical identifier unique to each player),
 player name, position, height, weight, date of birth, and the college from which they originated.
 
 \subsubsection{Tackles dataset}
 
-The tackles dataset contains the game ID, play ID, player ID, whether it was a
+The ``\verb|tackles.csv|'' dataset contains the game ID, play ID, player ID, whether it was a
 tackle or assisted tackle attempt, and whether the tackle was missed (a metric
 provided by the third-party vendor Pro Football Focus). The player ID is that of the
 ball-carrying player (usually the one being tackled).
