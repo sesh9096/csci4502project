@@ -326,36 +326,42 @@ factors such as position on the field or movement at the time of a tackle.
 
 \subsubsection{Games dataset}
 
-The games dataset contains the game id, home team, visiting team, scores, week,
-date, and time of every game within the 9 week period.
+The ``\verb|games.csv|'' dataset contains the game ID (a numerical identifier unique to each game),
+the home team, the visiting team, the resulting scores, the week of the season in which the game took
+place, the date, and the time of every game within the 9 week period.
 
 \subsubsection{Plays dataset}
 
-The plays dataset includes the game id, play id, quarter, down, distance,
-posessing team, side of field, offensive formation type, defenders in the box,
-text description, resulting yardage, ball carrier player id, and penalties (if
+The ``\verb|plays.csv|'' dataset includes the game ID, the play ID (a numerical identifier unique to
+each play performed during a game), the quarter of the game in which the play occurred,
+the down, the distance, the possessing team, the side of field, the offensive formation type,
+the defenders in the box, a text description of the play, the resulting yardage,
+the ball carrier player ID (a numerical identifier unique to each player, specifying, respective to the
+play, which player was carrying the ball during it), and penalties (if
 applicable) of every play within the 9 week period. Kicking plays (kickoffs,
-punts, and field goals) are excluded. Plays are identified by both the game id
-and play id, as play ids are not unique across games.
+punts, and field goals) are excluded. Plays are identified by both the game ID
+and play ID, as play IDs are not unique across games.
 
 \subsubsection{Players dataset}
 
-The players dataset contains a player id, player name, position, height,
-weight, date of birth, and the college from which they originated.
+The players dataset contains a player ID (a numerical identifier unique to each player),
+player name, position, height, weight, date of birth, and the college from which they originated.
 
 \subsubsection{Tackles dataset}
 
-The tackles dataset contains the game id, play id, player id, whether it was a
+The tackles dataset contains the game ID, play ID, player ID, whether it was a
 tackle or assisted tackle attempt, and whether the tackle was missed (a metric
-provided by the third-party vendor Pro Football Focus).
+provided by the third-party vendor Pro Football Focus). The player ID is that of the
+ball-carrying player (usually the one being tackled).
 
 \subsubsection{Tracking dataset}
 
 Players on the field, as well as the football itself, are equipped with
 tracking devices which enable recording of their location, speed, acceleration,
 and altitude. These variables are included in the tracking dataset, along with
-the associated game id, play id, player id (if applicable), and event
-description (such as \verb|tackle|).
+the associated game ID, play ID, player ID (if applicable), and event
+description (such as \verb|tackle|). This data is divided into 9 different datasets,
+one for each week of the 9-week period.
 
 \subsection{Exploratory analysis}
 
