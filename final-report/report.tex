@@ -495,9 +495,10 @@ To classify plays based on the presence of a missed tackle, a random forest
 classifier was constructed and trained using only variables known at the start
 of the play: quarter, down, side of field (own territory, midfield, or opponent
 territory), yards to go, offensive formation type, and defenders in the box.
-After performing SMOTE to account for the imbalance in the dataset, this
-classifier achieved an accuracy of 0.84 and f1-score of 0.83 when predicting
-whether the play would result in at least one missed tackle.
+SMOTE was performed to account for the imbalance in the dataset, and the
+resulting dataset was split into 80\% training 20\% testing. The classifier
+achieved an accuracy of 0.84 and f1-score of 0.83 when predicting whether the
+play would result in at least one missed tackle.
 
 \subsection{Grouping tackles}
 
