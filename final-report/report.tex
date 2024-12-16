@@ -508,7 +508,7 @@ with future tackles.
 We used $67\%$ of the data for training the Bayesian and decision tree models, and the rest for
 testing each model's effectiveness in predicting success. Both resulting models were able to
 predict whether or not a tackle succeeded with accuracy of $88.6\%$ and F1-score
-of $0.9397763996855621$. This shows that the factors chosen were, at least at face value, effective in
+of $0.94$. This shows that the factors chosen were, at least at face value, effective in
 predicting the likelihood of a tackle succeeding.
 
 \begin{figure}[h]
@@ -523,8 +523,8 @@ of "missed" tackles in comparison to "made" or "successful" tackles. This likely
 of the classifiers and made them seem more predictive than they are.
 
 When the dataset was adjusted using SMOTE (Synthetic Minority Oversampling Technique), the
-Bayesian model had an accuracy of $50.9\%$ and an F1-score of $0.5096858777515016$, while the
-decision tree had an accuracy of $50.4\%$ and an F1-score of $0.6700675539890862$. This supports
+Bayesian model had an accuracy of $50.9\%$ and an F1-score of $0.51$, while the
+decision tree had an accuracy of $50.4\%$ and an F1-score of $0.67$. This supports
 the idea that the accuracy of the classifiers is inflated by the proportion of made to missed tackles,
 and once balanced, their predictive abilities are no longer as strong.
 
@@ -536,7 +536,7 @@ of the play: quarter, down, side of field (own territory, midfield, or opponent
 territory), yards to go, offensive formation type, and defenders in the box.
 SMOTE was performed to account for the imbalance in the dataset, and the
 resulting dataset was split into 80\% training 20\% testing. The classifier
-achieved an accuracy of 0.84 and f1-score of 0.83 when predicting whether the
+achieved an accuracy of $84.0\%$ and F1-score of $0.83$ when predicting whether the
 play would result in at least one missed tackle.
 
 \subsection{Grouping tackles}
@@ -767,7 +767,7 @@ Bayesian classifier to predict likelihood of victory based on the number of
 successful tackles.
 
 The resulting classifier had an accuracy of $60\%$ and an F1-score of
-$0.6178628389154706$. Broadly, it categorized a "High" number of tackles as a
+$0.62$. Broadly, it categorized a "High" number of tackles as a
 lost game, and an "Average" and "Low" number of tackles as a won game. Thus, it
 does not appear as if the number of successful tackles has a significant impact
 on the likelihood of victory. Additionally, when the model was slightly
@@ -777,7 +777,7 @@ were comparable.
 Again, however, the accuracy scores were likely affected by the low proportion
 of missed to made tackles in the dataset. When the dataset was adjusted with
 SMOTE, the accuracy was then about $57.8\%$, and the F1-score was
-$0.5984794061302681$. Accuracy was therefore lower, but the general
+$0.60$. Accuracy was therefore lower, but the general
 implications with regard to the lack of applicability and predictive power of
 the number of tackles remained the same.
 
@@ -901,7 +901,7 @@ meaningful association between player characteristics of height, weight, and
 position, and their likelihood of being tackled.
 
 A random forest classifier trained on variables known at the start of a play
-proved to be more promising, with an accuracy of 0.84 and f1-score of 0.83
+proved to be more promising, with an accuracy of $84.0\%$ and F1-score of $0.83$
 predicting whether the play would result in at least one missed tackle.
 
 \subsection{Offensive strategies}
